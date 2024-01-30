@@ -23,6 +23,10 @@ const controller = {
 	login: (req, res) => {
 		let auxPath = path.join(__dirname, "../views", "login.ejs");
 		res.render(auxPath);
+	}, 
+	productCart: (req, res) => {
+		let auxPath = path.join(__dirname, "../views", "productCart.ejs");
+		res.render(auxPath);
 	},
 
 	search: (req, res) => {

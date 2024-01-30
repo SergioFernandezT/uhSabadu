@@ -9,6 +9,8 @@ router.get('/', mainController.index);
 router.get('/register', mainController.register);
 router.get('/productDetail', mainController.productDetail);
 router.get('/login', mainController.login);
+router.get('/productCart', mainController.productCart);
+
 
 
 
