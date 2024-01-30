@@ -10,6 +10,7 @@ body {
     background-image: url("/images/fondo1.png");
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
 }
 
 .header {
@@ -90,7 +91,7 @@ main ul {
     flex-direction: column;
     left: -80px;
     top: 240px;
-    
+
 }
 
 .features1 {
@@ -125,72 +126,80 @@ footer ul {
     list-style-type: none;
 }
 
-@media (min-width:360px) {
+@media (min-width:361px) {
     /* DESKTOP */
+
+    body {
+        background-image: url("/images/fondo1.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
     main {
         display: flex;
         position: relative;
         flex-wrap: wrap;
         left: 0px;
         top: 20px;
-        height: auto;
+        height: 55vw;
         width: 95vw;
         flex-direction: row;
-        margin-left: 5px;
+        margin-left: 3vw;
     }
-    
+
     .main_img_principal {
-        position: relative;
-        left: 35px;
+        position: absolute;
+        left: 19vw;
         top: 0px;
-        height: 50px;
-        width: 50px;
     }
-    
+
     .main_img_lateral {
-        position: relative;
+        position: absolute;
         order: -1;
         flex-direction: column;
-        height: 250px;
-        width: 50px;
+        height: auto;
+
     }
-    
+
     .img_principal {
-        height: 210px;
-        width: 280px;
+        height: 28vw;
+        width: 40vw;
+        border: 1px;
     }
-    
+
     .img_lateral {
-        height: 50px;
-        width: 80px;
+        height: 7vw;
+        width: 11vw;
     }
-    
+
     main ul {
         list-style-type: none;
     }
-    
+
     .main_caracteristicas {
         display: flex;
-        position: relative;
+        position: absolute;
         flex-direction: column;
-        left: -80px;
-        top: 240px;
-        
+        left: 0px;
+        top: 32vw;
     }
-    
+
     .features1 {
         display: flex;
         flex-wrap: nowrap;
         flex-direction: row;
     }
-    
+
     .features1_value {
         display: flex;
         flex-wrap: nowrap;
         flex-direction: column;
         text-align: right;
     }
-    
+
     footer {
         display: flex;
         position: relative;
@@ -198,7 +207,5 @@ footer ul {
         bottom: 0px;
         flex-direction: column;
     }
-    
-
 
 }
