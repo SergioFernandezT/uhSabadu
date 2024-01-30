@@ -179,21 +179,42 @@ footer ul {
         list-style-type: none;
     }
 
+    .title__general__features {
+        position: absolute;
+        flex-direction: row;
+        left: 0px;
+        top: 30vw;
+    }
     .main_caracteristicas {
         display: flex;
         position: absolute;
-        flex-direction: column;
+        flex-direction: row;
         left: 0px;
         top: 32vw;
+       
     }
 
     .features1 {
         display: flex;
         flex-wrap: nowrap;
         flex-direction: row;
+        margin-right: 8vw;
     }
 
     .features1_value {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        text-align: right;
+    }
+
+    .features2 {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+    }
+
+    .features2_value {
         display: flex;
         flex-wrap: nowrap;
         flex-direction: column;
