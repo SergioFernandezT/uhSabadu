@@ -1,0 +1,138 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-image: url('/images/fondo1.png');
+    background-size: cover;
+}
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;}
+
+    .subnav {
+        background-color: cadetblue;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+        margin-top: 120px;
+        margin-bottom: -50px;
+    } 
+    .subnav a {
+        color: white;
+        text-decoration: none; 
+    }    
+.branding {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container  {
+    max-height: 50px;
+}
+
+.barrabusq {
+    margin-left: 20px;
+}
+
+.barrabusq input {
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+.barrabusq button {
+    background-color: cadetblue;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.usuario {
+    display: flex;
+    align-items: center;
+}
+
+.usuario span {
+    margin-right: 80px;
+}
+
+.producto-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-top: 130px;
+    border: solid 3px black
+    
+}
+
+.producto-info img {
+    max-width: 100px; 
+    margin-right: 20px;
+}
+
+.detalles {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-left: 700px;   
+}
+.quantity {
+    display: flex;
+    align-items: center;
+}
+
+.quantity button {
+    background-color: cadetblue;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-left: 20px;
+    margin-right: 20px;
+    
+}
+
+form {
+    margin-top: 20px;
+}
+
+form label,
+form textarea,
+form select,
+form button {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form input,
+form textarea,
+form select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+form button {
+    background-color: cadetblue;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-left: auto;
+    display: block;
+}
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.redes a {
+    margin-right: 10px;
+}
+
