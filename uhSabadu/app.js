@@ -3,24 +3,24 @@ const path = require("path");
 
 const app = express();
 
-const publicPath = path.join(__dirname, "/public");
+const publicPath = path.join(__dirname, "public");
 app.use(express.static(publicPath));
 
 app.get("/", (req, res) => {
-  let homePath = path.join(__dirname, "views", "home.html");
+  let homePath = path.join(__dirname, "/src/views", "home.html");
   res.sendFile(homePath);
 });
 
 app.get("/register", (req, res) => {
-  let homePath = path.join(__dirname, "views", "register.html");
+  let homePath = path.join(__dirname, "/src/views", "register.ejs");
   res.sendFile(homePath);
 });
 app.get("/productDetail", (req, res) => {
-  let homePath = path.join(__dirname, "views", "productDetail.html");
+  let homePath = path.join(__dirname, "/src/views", "productDetail.ejs");
   res.sendFile(homePath);
 });
 app.get("/login", (req, res) => {
-  let homePath = path.join(__dirname, "views", "login.html");
+  let homePath = path.join(__dirname, "/src/views", "login.ejs");
   res.sendFile(homePath);
 });
 
