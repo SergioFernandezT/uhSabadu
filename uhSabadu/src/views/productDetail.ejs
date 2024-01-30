@@ -11,29 +11,7 @@
 </head>
 
 <body>
-    <header>
-        <div class="header">
-            <img src="/images/logo.png" alt="Logo" />
-
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar productos, marcas" />
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-
-            <div class="buttons">
-                <div>
-                    <i class="fa-solid fa-user-large"></i>
-                    <a href="/login.html">Login</a>
-
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <a href="/productCart.html">Carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="burguer-menu">
-            <i class="fas fa-bars"></i>
-        </div>
-    </header>
+    <%- include('./partials/header.ejs') %>
     <main>
         <section class="main_img_principal">
             <img class="img_lateral2" src="images/img_principal.png" alt="pc prueba">
