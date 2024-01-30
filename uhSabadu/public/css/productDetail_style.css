@@ -10,7 +10,7 @@ body {
     background-image: url("/images/fondo1.png");
     background-repeat: no-repeat;
     background-size: cover;
-  }
+}
 
 .header {
     margin: 2% 2%;
@@ -48,38 +48,62 @@ main {
     flex-wrap: wrap;
     left: 0px;
     top: 20px;
+    height: 520px;
     width: 750px;
     flex-direction: row;
+    margin-left: 5px;
 }
 
 .main_img_principal {
-    position: absolute;
-    order: 2;
-    left: 90px;
+    position: relative;
+    left: 35px;
     top: 0px;
-}
-
-.main_imagen_lateral {
-    flex-grow: initial;
-    position: absolute;
-    order: 1;
-    flex-direction: column;
-    
-}
-
-.imagen_lateral {
     height: 50px;
     width: 50px;
 }
 
+.main_img_lateral {
+    position: relative;
+    order: -1;
+    flex-direction: column;
+    height: 250px;
+    width: 50px;
+}
+
+.img_principal {
+    height: 210px;
+    width: 280px;
+}
+
+.img_lateral {
+    height: 50px;
+    width: 80px;
+}
+
 main ul {
     list-style-type: none;
-  }
-  
+}
+
+.main_caracteristicas {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    left: -80px;
+    top: 240px;
+    
+}
 
 .features1 {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.features1_value {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    text-align: right;
 }
 
 footer {
@@ -91,8 +115,6 @@ footer {
 }
 
 footer section {
-    display: flex;
-    z-index: 5;
     flex-direction: column;
     align-items: center;
     margin: 15px;
