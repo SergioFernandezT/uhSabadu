@@ -126,6 +126,16 @@ footer ul {
     list-style-type: none;
 }
 
+form.Agregar {
+    text-align: center;
+}
+
+form.Agregar button {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
 @media (min-width:361px) {
     /* DESKTOP */
 
