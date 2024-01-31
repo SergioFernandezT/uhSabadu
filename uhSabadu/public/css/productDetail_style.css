@@ -226,7 +226,9 @@ footer ul {
         position: relative;
         left: 0px;
         bottom: 0px;
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-around;
+        
     }
 
 }
