@@ -95,6 +95,10 @@ footer section {
   text-align: center;
 }
 
+footer ul {
+  list-style-type: none;
+}
+
 .slider {
   aspect-ratio: 16 / 9;
   width: 50%;
