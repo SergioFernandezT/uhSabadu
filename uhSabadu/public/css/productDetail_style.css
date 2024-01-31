@@ -109,7 +109,7 @@ main ul {
 
 footer {
     display: flex;
-    position: relative;
+        position: relative;
     left: 0px;
     bottom: 0px;
     flex-direction: column;
