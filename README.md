@@ -35,4 +35,4 @@ Las páginas citadas anteriormente, fueron elegidas por su simpleza y facil inte
 
 _Links:_
 
-- [Trello](https://trello.com/b/2QZ4jkJn/sprint-2-grupo-4)
+- [Trello](https://trello.com/b/fFCNSET3/sprint-1-grupo-4)
