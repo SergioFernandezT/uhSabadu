@@ -1,91 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<%- include('./partials/head.ejs') %>
   <title>uhSabadu</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
-</head>
 
-<body>
-  <%- include('./partials/header.ejs') %>
-    <main>
-      <div class="slider-container">
-        <div class="slider">
-          <img src="/images/carru1.jpg" alt="Imagen 1" />
-          <img src="/images/carru2.jpg" alt="Imagen 2" />
-          <img src="/images/carru3.jpg" alt="Imagen 3" />
-          <img src="/images/carru4.jpg" alt="Imagen 4" />
-          <img src="/images/carru5.jpg" alt="Imagen 5" />
-          <img src="/images/carru6.jpg" alt="Imagen 6" />
-        </div>
-      </div>
-      <h1>PRODUCTOS DESTACADOS</h1>
-      <div class="productos-destacados">
-        <div class="card">
-          <img src="/images/oferta1.jpg" alt="Producto 1" />
-          <p>Oferta 1</p>
-          <p>$???</p>
-        </div>
-        <div class="card">
-          <img src="/images/oferta2.jpg" alt="Producto 2" />
-          <p>Oferta 2</p>
-          <p>$???</p>
-        </div>
-        <div class="card">
-          <img src="/images/oferta3.jpg" alt="Producto 3" />
-          <p>Oferta 3</p>
-          <p>$???</p>
-        </div>
-        <div class="card">
-          <img src="/images/oferta4.jpg" alt="Producto 4" />
-          <p>Oferta 4</p>
-          <p>$???</p>
-        </div>
-      </div>
+  </head>
 
-      <div class="marcas">
-        <img src="/images/marca1.png" alt="Marca 1" />
-        <img src="/images/marca2.png" alt="Marca 2" />
-        <img src="/images/marca3.png" alt="Marca 3" />
-        <img src="/images/marca4.png" alt="Marca 4" />
-      </div>
-    </main>
-    <footer>
-      <section class="CONTACTO">
-        <strong>CONTACTO</strong>
-        <ul>
-          <li>Libertad N20 - Ciudad de Nieva - Jujuy</li>
-          <li>Av Jujuy 1234 - Centro - Salta</li>
-          <li>388-5489123 / 387-6423784</li>
-        </ul>
-      </section>
-      <section class="HORARIOS">
-        <strong>HORARIOS DE ATENCION</strong>
-        <ul>
-          <li>Lunes a Viernes 09:00 a 13:00 / 17:00 a 21:00</li>
-        </ul>
-      </section>
-      <section class="REDES">
-        <strong>NUESTRAS REDES</strong>
-        <div id="img__redes"><img src="/images/redes.svg" alt="fondo" /></div>
-      </section>
-      <section class="METODOS">
-        <strong>METODOS DE PAGO</strong>
-        <ul>
-          <li>Efectivo</li>
-          <li>Mercado Pago</li>
-          <li>Transferencias bancarias</li>
-          <li>Tarjetas de crédito</li>
-        </ul>
-      </section>
-      <section class="FAQ">
-        <strong> <a href="">FAQ</a></strong>
-      </section>
-    </footer>
-</body>
+  <body>
+    <%- include('./partials/header.ejs') %>
+      <main>
+        <div class="slider-container">
+          <div class="slider">
+            <img src="/images/carru1.jpg" alt="Imagen 1" />
+            <img src="/images/carru2.jpg" alt="Imagen 2" />
+            <img src="/images/carru3.jpg" alt="Imagen 3" />
+            <img src="/images/carru4.jpg" alt="Imagen 4" />
+            <img src="/images/carru5.jpg" alt="Imagen 5" />
+            <img src="/images/carru6.jpg" alt="Imagen 6" />
+          </div>
+        </div>
+        <h1>PRODUCTOS DESTACADOS</h1>
+        <div class="productos-destacados">
+          <div class="card">
+            <img src="/images/oferta1.jpg" alt="Producto 1" />
+            <p>Oferta 1</p>
+            <p>$???</p>
+          </div>
+          <div class="card">
+            <img src="/images/oferta2.jpg" alt="Producto 2" />
+            <p>Oferta 2</p>
+            <p>$???</p>
+          </div>
+          <div class="card">
+            <img src="/images/oferta3.jpg" alt="Producto 3" />
+            <p>Oferta 3</p>
+            <p>$???</p>
+          </div>
+          <div class="card">
+            <img src="/images/oferta4.jpg" alt="Producto 4" />
+            <p>Oferta 4</p>
+            <p>$???</p>
+          </div>
+        </div>
 
-</html>
+        <div class="marcas">
+          <img src="/images/marca1.png" alt="Marca 1" />
+          <img src="/images/marca2.png" alt="Marca 2" />
+          <img src="/images/marca3.png" alt="Marca 3" />
+          <img src="/images/marca4.png" alt="Marca 4" />
+        </div>
+      </main>
+      <footer>
+        <section class="CONTACTO">
+          <strong>CONTACTO</strong>
+          <ul>
+            <li>Libertad N20 - Ciudad de Nieva - Jujuy</li>
+            <li>Av Jujuy 1234 - Centro - Salta</li>
+            <li>388-5489123 / 387-6423784</li>
+          </ul>
+        </section>
+        <section class="HORARIOS">
+          <strong>HORARIOS DE ATENCION</strong>
+          <ul>
+            <li>Lunes a Viernes 09:00 a 13:00 / 17:00 a 21:00</li>
+          </ul>
+        </section>
+        <section class="REDES">
+          <strong>NUESTRAS REDES</strong>
+          <div id="img__redes"><img src="/images/redes.svg" alt="fondo" /></div>
+        </section>
+        <section class="METODOS">
+          <strong>METODOS DE PAGO</strong>
+          <ul>
+            <li>Efectivo</li>
+            <li>Mercado Pago</li>
+            <li>Transferencias bancarias</li>
+            <li>Tarjetas de crédito</li>
+          </ul>
+        </section>
+        <section class="FAQ">
+          <strong> <a href="">FAQ</a></strong>
+        </section>
+      </footer>
+  </body>
+
+  </html>

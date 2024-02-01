@@ -43,6 +43,10 @@ body {
     }
 }
 
+section {
+    display: flex;
+  }
+
 main {
     display: flex;
     position: relative;
@@ -109,7 +113,7 @@ main ul {
 
 footer {
     display: flex;
-        position: relative;
+    position: relative;
     left: 0px;
     bottom: 0px;
     flex-direction: column;
@@ -195,13 +199,14 @@ form.Agregar button {
         left: 0px;
         top: 30vw;
     }
+
     .main_caracteristicas {
         display: flex;
         position: absolute;
         flex-direction: row;
         left: 0px;
         top: 32vw;
-       
+
     }
 
     .features1 {
@@ -238,7 +243,7 @@ form.Agregar button {
         bottom: 0px;
         flex-direction: row;
         justify-content: space-around;
-        
+
     }
 
 }

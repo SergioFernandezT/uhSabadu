@@ -1,59 +1,53 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<%- include('./partials/head.ejs') %>
     <title>Registro de usuario</title>
-    <link rel="stylesheet" href="/css/normalize.css"> 
-    <link rel="stylesheet" href="/css/register.css"> 
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/register.css">
+    </head>
 
-    <main>
-        <div class="logo">
-            <img src="/images/sabadu.png" alt="Logo">
-        </div>
+    <body>
+        <%- include('./partials/header.ejs') %>
+            <main>
 
-        <div class="formulario">
-            <form>
-            <section>
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
+                <div class="formulario">
+                    <form>
+                        <section>
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" required>
 
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" required>
-            </section>
+                            <label for="apellido">Apellido:</label>
+                            <input type="text" id="apellido" name="apellido" required>
+                        </section>
 
-            <section>
-                <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" name="direccion" required>
-            </section>
+                        <section>
+                            <label for="direccion">Dirección:</label>
+                            <input type="text" id="direccion" name="direccion" required>
+                        </section>
 
-            <section>
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" required>
-            </section>
+                        <section>
+                            <label for="email">E-mail:</label>
+                            <input type="email" id="email" name="email" required>
+                        </section>
 
-            <section>
-                <label for="pais">País:</label>
-                <input type="text" id="pais" name="pais" required>
-            </section>
+                        <section>
+                            <label for="pais">País:</label>
+                            <input type="text" id="pais" name="pais" required>
+                        </section>
 
-            <section class="tel">
-                <label for="codigoArea">Código de Área:</label>
-                <input class="codigoArea" type="text" id="codigoArea" name="codigoArea" required>
+                        <section class="tel">
+                            <label for="codigoArea">Código de Área:</label>
+                            <input class="codigoArea" type="text" id="codigoArea" name="codigoArea" required>
 
-                <label for="telefono">Teléfono:</label>
-                <input class="telefono" type="text" id="telefono" name="telefono" required>
-            </section>
-            <button type="reset">Borrar formulario</button>
-            <button type="submit">Enviar Datos</button>
-            </form>
-        </div>
-    </main>
+                            <label for="telefono">Teléfono:</label>
+                            <input class="telefono" type="text" id="telefono" name="telefono" required>
+                        </section>
+                        <button type="reset">Borrar formulario</button>
+                        <button type="submit">Enviar Datos</button>
+                    </form>
+                </div>
+            </main>
 
-    <footer>
-        <p>&copy; 2024 uhSABADU</p>
-    </footer>
-</body>
-</html>
+            <%- include('./partials/footer.ejs') %>
+
+    </body>
+
+    </html>

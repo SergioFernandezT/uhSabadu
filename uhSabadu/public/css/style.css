@@ -149,11 +149,11 @@ footer ul {
 
 .marcas {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
 }
 
 .marcas img {
   height: 10vw;
   width: auto;
-  margin-left: 20px;
+  margin-left: 1vw;
 }
