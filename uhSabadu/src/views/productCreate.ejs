@@ -1,0 +1,101 @@
+<%- include('./partials/head.ejs') %>
+    <title>uhSabadu</title>
+    <link rel="stylesheet" href="css/productDetail_style.css">
+    </head>
+
+    <body>
+        <%- include('./partials/header.ejs') %>
+            <main>
+                <section class="main_img_principal">
+                    <img class="img_principal" src="images/img_principal.png" alt="pc prueba">
+                </section>
+                <section class="main_img_lateral">
+                    <img class="img_lateral" src="images/lateral1.webp" alt="imagen lateral">
+                    <img class="img_lateral" src="images/lateral2.webp" alt="imagen lateral">
+                    <img class="img_lateral" src="images/lateral3.webp" alt="imagen lateral">
+                    <img class="img_lateral" src="images/lateral4.webp" alt="imagen lateral">
+                </section>
+                <section class="main_otros">
+
+                </section>
+                <h5 class="title__general__features">CARACTERISTICAS GENERALES</h3>
+                    <section class="main_caracteristicas">
+
+                        <div class="features1">
+                            <div class="features1_left">
+                                <ul>
+                                    <li>Color</li>
+                                    <li>Sistema Operativo</li>
+                                    <li> Tipo De Cpu</li>
+                                    <li> Tipo De Gpu</li>
+                                    <li> Batería Extraible</li>
+                                    <li> Modelo Gpu</li>
+                                    <li> Modelo Cpu</li>
+                                    <li> Tipo</li>
+                                    <li> Memoria Gpu</li>
+                                    <li> Lector De Huellas</li>
+                                    <li> Familia Del Procesador</li>
+                                </ul>
+                            </div>
+                            <div class="features1_value">
+                                <ul>
+                                    <li>Negro</li>
+                                    <li>Windows 11 Home</li>
+                                    <li>Intel</li>
+                                    <li>Nvidia GeForce</li>
+                                    <li>No</li>
+                                    <li>GTX 1650</li>
+                                    <li>Core i5 10300H</li>
+                                    <li>Notebook</li>
+                                    <li>4 gb</li>
+                                    <li>No</li>
+                                    <li>Intel Core i5</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="features2">
+                            <div class="features2_left">
+                                <ul>
+                                    <li>Puertos Hdmi</li>
+                                    <li>Puertos Mini Hdmi</li>
+                                    <li>Puerto Mini Dp</li>
+                                    <li>Puertos Usb 2.0 Tipo A</li>
+                                    <li>Puertos Usb 3.0 Tipo A</li>
+                                    <li>Puertos Usb 3.2 Tipo A</li>
+                                    <li>Puertos Usb 3.2 Tipo C</li>
+                                    <li>Bluetooth</li>
+                                    <li>Wifi</li>
+                                    <li>Puertos Ethernet</li>
+                                </ul>
+                            </div>
+                            <div class="features2_value">
+                                <ul>
+                                    <li>1</li>
+                                    <li>0</li>
+                                    <li>0</li>
+                                    <li>1</li>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>1</li>
+                                    <li>Si</li>
+                                    <li>Norma AX</li>
+                                    <li>Si</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+            </main>
+            <section>
+                <form class="Agregar">
+                    <button type="button" onclick="irAproductCart()"> + Agregar al carrito</button>
+                    <script>
+                        function irAproductCart() {
+                            window.location.href = "/productCart";
+                        }
+                    </script>
+                </form>
+            </section>
+            <%- include('./partials/footer.ejs') %>
+    </body>
+
+    </html>
