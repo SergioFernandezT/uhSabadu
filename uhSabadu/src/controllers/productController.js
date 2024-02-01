@@ -1,15 +1,20 @@
 const fs = require('fs');
 const path = require('path');
 
-const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
-const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+//const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
+//const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+
+const products = []
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const controller = {
 	// Root - Show all products
 	list: (req, res) => {
-		res.render('products.ejs', { products, toThousand })
+
+		let homePath = path.join(__dirname, "../views", "productsList.ejs");
+		res.render(homePath)
+
 	},
 
 	// Detail - Detail from one product
@@ -32,17 +37,7 @@ const controller = {
 
 	// Create -  Method to store
 	processCreate: (req, res) => {
-		// let {name, price, discount, category, description, image} = req.body 
 
-		// const newProduct = {
-		// 	id: Date.now(),
-		// 	name: name,
-		// 	price: price,
-		// 	discount: discount,
-		// 	category: category,
-		// 	description: description,
-		// 	image: image || 'default-img.png',
-		// }
 		const newProduct = {
 			id: Date.now(),
 			name: req.body.name,
