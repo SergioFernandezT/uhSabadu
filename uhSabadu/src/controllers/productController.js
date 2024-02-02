@@ -12,15 +12,15 @@ const controller = {
 
 		let homePath = path.join(__dirname, "../views", "productsList.ejs");
 		res.render(homePath, { products, toThousand })
-
 	},
 
 	// Detail - Detail from one product
 	detail: (req, res) => {
 		let product = products.find(product => product.id == req.params.id)
 		// console.log('product-linea-18', product);
+		let auxPath = path.join(__dirname, "../views", "productDetail.ejs");
 		if (product) {
-			return res.render('detail.ejs', { product, toThousand })
+			return res.render(auxPath, { product, toThousand })
 		}
 		res.send(`
 		<h1>El producto que buscas no existe</h1>
@@ -30,12 +30,14 @@ const controller = {
 
 	// Create - Form to create
 	createForm: (req, res) => {
-		res.render('product-create-form.ejs')
+		let auxPath = path.join(__dirname, "../views", "productCreate.ejs");
+		res.render(auxPath)
 	},
 
 	// Create -  Method to store
 	processCreate: (req, res) => {
 
+		// Armamos el nuevo producto
 		const newProduct = {
 			id: Date.now(),
 			name: req.body.name,
@@ -43,10 +45,16 @@ const controller = {
 			discount: req.body.discount,
 			category: req.body.category,
 			description: req.body.description,
-			image: req.body.image || 'default-img.png',
+			image: req.file?.filename || 'default-img.png',
 		}
+		// Agregamos el nuevo producto al listado
+		products.push(newProduct)
+		// Convertimos a json el objeto javascript
+		let productsJSON = JSON.stringify(products, null, ' ')
+		// Escribimos el json
+		fs.writeFileSync(productsFilePath, productsJSON)
 
-		res.json(newProduct)
+		res.redirect('/products')
 	},
 
 	// Update - Form to edit
