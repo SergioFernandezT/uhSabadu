@@ -63,7 +63,8 @@ const controller = {
 		let product = products.find(product => product.id == req.params.id)
 		if (product) {
 			// Renderizar la vista con los datos
-			return res.render('product-edit-form.ejs', { product })
+			let auxPath = path.join(__dirname, "../views", "productEdit.ejs");
+		 	return (res.render(auxPath, {product}))
 		}
 		res.send(`
 		<h1>El producto que intentas editar no existe</h1>
@@ -72,7 +73,32 @@ const controller = {
 	},
 	// Update - Method to update
 	processEdit: (req, res) => {
-		// Do the magic
+		// Ver como llega la info por body y por file
+		// console.log("🚀 ~ req:", req.params)
+		// console.log("🚀 ~ req.body:", req.body)
+		// console.log("🚀 ~ req.file:", req.file)
+		// Obtener el id del producto a editar 
+		let id = req.params.id
+		// Buscamos el producto a editar con ese id
+		let productEdit = products.find(product => product.id == id)
+		// Si lo encuentra
+		if (productEdit) {
+			productEdit.name = req.body.name || productEdit.name
+			productEdit.price = req.body.price || productEdit.price
+			productEdit.discount = req.body.discount || productEdit.discount
+			productEdit.description = req.body.description || productEdit.description
+			productEdit.category = req.body.category || productEdit.category
+			// Estaria bueno borrar la vieja si sube una nueva
+			productEdit.image = req.file?.filename || productEdit.image
+
+			// Convertir a JSON y Sobre-escribir el json de productos
+			fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 2))
+			// Redirigir al listado
+			res.redirect('/products')
+		} else {
+			// Si no lo encuentra
+			res.send('El producto a editar no existe')
+		}
 	},
 
 	// Delete - Delete one product from DB

@@ -13,7 +13,8 @@
     "price": 72999,
     "discount": 25,
     "category": "in-sale",
-    "description": "Experiencia visual excepcional. Mirá tus series y películas favoritas con la mejor definición.Tendrás colores brillantes y detalles precisos en todos tus contenidos.Disfrutá aún más del mejor entretenimiento gracias a su vasta pantalla y ángulos de visión amplios."},
+    "description": "Experiencia visual excepcional. Mirá tus series y películas favoritas con la mejor definición.Tendrás colores brillantes y detalles precisos en todos tus contenidos.Disfrutá aún más del mejor entretenimiento gracias a su vasta pantalla y ángulos de visión amplios."
+  },
   {
     "id": 4,
     "name": "Heladera no frost Whirlpool WRM45A",
@@ -38,5 +39,14 @@
     "discount": 12,
     "image": "img-aire-acondicionado.jpg",
     "category": "in-sale"
+  },
+  {
+    "id": 1706938404524,
+    "name": "pipo",
+    "price": "2305",
+    "discount": "15",
+    "category": "in-sale",
+    "description": "no algo",
+    "image": "default-img.png"
   }
 ]
