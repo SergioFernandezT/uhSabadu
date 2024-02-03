@@ -6,7 +6,7 @@ const methodOverride = require('method-override');
 // Requiriendo  archivos de rutas
 const rutasMain = require('./routes/mainRoute')
 const rutasProducts = require('./routes/productsRoutes')
-// const rutasUsers = require('./routes/usersRoutes')
+const rutasUsers = require('./routes/usersRoutes')
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.use(express.static(publicPath));
 
 app.use('/',rutasMain)
 app.use('/products',rutasProducts)
-// app.use('/',rutasUsers)
+app.use('/users',rutasUsers)
 
 
 const port = 3737;

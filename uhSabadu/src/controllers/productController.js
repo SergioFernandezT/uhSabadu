@@ -64,7 +64,7 @@ const controller = {
 		if (product) {
 			// Renderizar la vista con los datos
 			let auxPath = path.join(__dirname, "../views", "productEdit.ejs");
-		 	return (res.render(auxPath, {product}))
+			return (res.render(auxPath, { product }))
 		}
 		res.send(`
 		<h1>El producto que intentas editar no existe</h1>
@@ -73,10 +73,7 @@ const controller = {
 	},
 	// Update - Method to update
 	processEdit: (req, res) => {
-		// Ver como llega la info por body y por file
-		// console.log("🚀 ~ req:", req.params)
-		// console.log("🚀 ~ req.body:", req.body)
-		// console.log("🚀 ~ req.file:", req.file)
+
 		// Obtener el id del producto a editar 
 		let id = req.params.id
 		// Buscamos el producto a editar con ese id
