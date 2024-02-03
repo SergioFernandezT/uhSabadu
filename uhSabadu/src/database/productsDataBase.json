@@ -41,12 +41,12 @@
     "category": "in-sale"
   },
   {
-    "id": 1706938404524,
-    "name": "pipo",
-    "price": "2305",
-    "discount": "15",
-    "category": "in-sale",
-    "description": "no algo",
+    "id": 1706949127271,
+    "name": "perro",
+    "price": "",
+    "discount": "",
+    "category": "",
+    "description": "",
     "image": "default-img.png"
   }
 ]

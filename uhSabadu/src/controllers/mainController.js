@@ -17,7 +17,7 @@ const controller = {
 	},
 
 	productDetail: (req, res) => {
-		let auxPath = path.join(__dirname, "../views", "productDetail.ejs");
+		let auxPath = path.join(__dirname, "../views", "productDetail-backup.ejs");
 		res.render(auxPath);
 	},
 	login: (req, res) => {

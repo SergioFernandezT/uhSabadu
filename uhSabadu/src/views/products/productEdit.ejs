@@ -1,10 +1,10 @@
-<%- include('./partials/head.ejs') %>
+<%- include('../partials/head.ejs') %>
     <title>uhSabadu</title>
     <link rel="stylesheet" href="/css/productEdit.css">
     </head>
 
     <body>
-        <%- include('./partials/header.ejs') %>
+        <%- include('../partials/header.ejs') %>
             <main>
                 <form action="/products/edit/<%= product.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
                     <div class="row product-detail">
@@ -55,7 +55,7 @@
                     <button type="submit" class="action-button delete">ELIMINAR</button>
                 </form>
             </main>
-            <%- include('./partials/footer.ejs') %>
+            <%- include('../partials/footer.ejs') %>
 
     </body>
 

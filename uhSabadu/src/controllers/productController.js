@@ -10,7 +10,7 @@ const controller = {
 	// Root - Show all products
 	list: (req, res) => {
 		let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-		let homePath = path.join(__dirname, "../views", "productsList.ejs");
+		let homePath = path.join(__dirname, "../views/products", "productsList.ejs");
 		res.render(homePath, { products, toThousand })
 	},
 
@@ -18,7 +18,7 @@ const controller = {
 	detail: (req, res) => {
 		let product = products.find(product => product.id == req.params.id)
 		// console.log('product-linea-18', product);
-		let auxPath = path.join(__dirname, "../views", "productDetail.ejs");
+		let auxPath = path.join(__dirname, "../views/products", "productDetail.ejs");
 		if (product) {
 			return res.render(auxPath, { product, toThousand })
 		}
@@ -30,7 +30,7 @@ const controller = {
 
 	// Create - Form to create
 	createForm: (req, res) => {
-		let auxPath = path.join(__dirname, "../views", "productCreate.ejs");
+		let auxPath = path.join(__dirname, "../views/products", "productCreate.ejs");
 		res.render(auxPath)
 	},
 
@@ -63,7 +63,7 @@ const controller = {
 		let product = products.find(product => product.id == req.params.id)
 		if (product) {
 			// Renderizar la vista con los datos
-			let auxPath = path.join(__dirname, "../views", "productEdit.ejs");
+			let auxPath = path.join(__dirname, "../views/products", "productEdit.ejs");
 			return (res.render(auxPath, { product }))
 		}
 		res.send(`
