@@ -2,14 +2,14 @@ const fs = require('fs');
 const path = require('path');
 
 const productsFilePath = path.join(__dirname, '../database/', 'productsDataBase.json');
-const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const controller = {
 	// Root - Show all products
 	list: (req, res) => {
-
+		let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 		let homePath = path.join(__dirname, "../views", "productsList.ejs");
 		res.render(homePath, { products, toThousand })
 	},
@@ -50,7 +50,7 @@ const controller = {
 		// Agregamos el nuevo producto al listado
 		products.push(newProduct)
 		// Convertimos a json el objeto javascript
-		let productsJSON = JSON.stringify(products, null, ' ')
+		let productsJSON = JSON.stringify(products, null, 2)
 		// Escribimos el json
 		fs.writeFileSync(productsFilePath, productsJSON)
 
@@ -103,8 +103,24 @@ const controller = {
 
 	// Delete - Delete one product from DB
 	delete: (req, res) => {
-		res.send(`
-		Estas eliminando el producto con id ${req.params.id}`)
+		// Obtener el id del producto
+		let id = req.params.id
+
+		// Quitar imagen
+		const productToDelete = products.find(product => product.id == id)
+		if (productToDelete.image != 'default-img.png') {
+			fs.unlinkSync(path.join(__dirname, '../../public/images/products', productToDelete.image))
+		}
+
+		// Quitar producto deseado
+		products = products.filter(product => product.id != id)
+		// console.log(products);
+		// Convertir a json el listado actualizado
+		products = JSON.stringify(products, null, 2)
+		// Re-escribir el json
+		fs.writeFileSync(productsFilePath, products)
+		// Redireccionar
+		res.redirect('/products')
 	}
 };
 

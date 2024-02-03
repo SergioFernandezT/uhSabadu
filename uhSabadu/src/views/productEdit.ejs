@@ -1,6 +1,6 @@
 <%- include('./partials/head.ejs') %>
     <title>uhSabadu</title>
-    <link rel="stylesheet" href="/css/productDetail_style.css">
+    <link rel="stylesheet" href="/css/productEdit.css">
     </head>
 
     <body>
@@ -49,6 +49,10 @@
                             <button type="submit" class="buy-now-button">Guardar producto</button>
                         </div>
                     </div>
+                </form>
+                <form action="/products/delete/<%= product.id %>?_method=DELETE" method="POST"
+                    style="display: inline-flex">
+                    <button type="submit" class="action-button delete">ELIMINAR</button>
                 </form>
             </main>
             <%- include('./partials/footer.ejs') %>

@@ -10,7 +10,7 @@ const path = require('path')
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/images/products')
+        cb(null, 'uhSabadu/public/images/products')
     },
     filename: (req, file, cb) => {
         let fileName = `img_${Date.now()}${path.extname(file.originalname)}`
@@ -27,7 +27,6 @@ router.get('/', productsController.list);
 router.get('/create', productsController.createForm);
 router.post('/create', upload.single('image'), productsController.processCreate);
 
-
 /*** GET ONE PRODUCT ***/
 router.get('/detail/:id', productsController.detail);
 
@@ -35,9 +34,7 @@ router.get('/detail/:id', productsController.detail);
 router.get('/edit/:id', productsController.editForm);
 router.put('/edit/:id', upload.single('image'), productsController.processEdit);
 
-
 /*** DELETE ONE PRODUCT***/
 router.delete('/delete/:id', productsController.delete);
-
 
 module.exports = router;
