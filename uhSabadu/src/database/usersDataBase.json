@@ -32,15 +32,6 @@
     "category": "in-sale"
   },
   {
-    "id": 1706938404524,
-    "name": "zuricata",
-    "price": "2305",
-    "discount": "15",
-    "category": "in-sale",
-    "description": "no algo",
-    "image": "default-img.png"
-  },
-  {
     "id": 1706949710104,
     "name": "gato",
     "price": "",
