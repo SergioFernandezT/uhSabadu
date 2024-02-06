@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-// const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
-// const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+const productsFilePath = path.join(__dirname, '../database/productsDataBase.json');
+const productsDataBase = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
@@ -23,14 +23,26 @@ const controller = {
 	login: (req, res) => {
 		let auxPath = path.join(__dirname, "../views", "login.ejs");
 		res.render(auxPath);
-	}, 
-	productCart: (req, res) => {
-		let auxPath = path.join(__dirname, "../views", "productCart.ejs");
-		res.render(auxPath);
 	},
 
 	search: (req, res) => {
-		// Do the magic
+		// Obtener informacion del formulario req.QUERY (GET)
+		let keywords = req.query.keywords.toUpperCase()
+		console.log(keywords)
+
+		// Filtrar array de productos con la palabra buscada
+		let products = productsDataBase.filter(product => {
+			return (product.name.toUpperCase().includes(keywords) || 
+			product.description.toUpperCase().includes(keywords))
+		})
+		let homePath = path.join(__dirname, "../views/products", "productsList.ejs");
+		if (products) {
+			res.render(homePath, { products , toThousand })
+		}else {
+			// Si no lo encuentra
+			res.send('El producto buscado no existe')
+		}
+		
 	},
 };
 

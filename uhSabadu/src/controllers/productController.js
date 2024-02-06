@@ -118,7 +118,12 @@ const controller = {
 		fs.writeFileSync(productsFilePath, products)
 		// Redireccionar
 		res.redirect('/products')
-	}
+	},
+
+	productCart: (req, res) => {
+		let auxPath = path.join(__dirname, "../views/products", "productCart.ejs");
+		res.render(auxPath);
+	},
 };
 
 module.exports = controller;

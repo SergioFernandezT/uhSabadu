@@ -37,4 +37,7 @@ router.put('/edit/:id', upload.single('image'), productsController.processEdit);
 /*** DELETE ONE PRODUCT***/
 router.delete('/delete/:id', productsController.delete);
 
+/*** BUY PROCCESS ***/
+router.get('/productCart', productsController.productCart);
+
 module.exports = router;
