@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="/css/ProductCart.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="/images/logo.png" alt="UHSABADU">
+        </div>
+        <div class="barrabusq">
+            <input type="text" placeholder="Buscar...">
+            <button type="button">Buscar</button>
+        </div>
+    </div>
+    <div class="usuario">
+        <span>Nombre de Usuario</span>
+        <img src="/images/carrito2.png" alt="Símbolo del Carrito" width="40" height="33">
+    </div>
+    </header>
+
+</div>
+<div class="subnav">
+    <a href="#">Productos</a>
+    <a href="#">Arma tu PC</a>
+    <a href="#">Ayuda</a>
+    <a href="#">Marcas Sponsor</a>
+</div>
+
+    <div class="producto">
+        <div class="producto-info">
+            <img src="producto.jpg" alt="Producto">
+            <h2>Nombre del Producto</h2>
+            <div class="detalles">
+                <p>  $50.00</p>
+                <div class="quantity">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                </div> 
+            </div>
+        </div>
+
+    <form id="checkoutForm" action="/procesar-compra" method="post">
+        <label for="codigoPostal">Código Postal:</label>
+        <input type="text" id="codigoPostal" name="codigoPostal" required>
+
+        <label for="codigoDescuento">Código de Descuento:</label>
+        <input type="text" id="codigoDescuento" name="codigoDescuento">
+
+        <label for="facturacion">Información de Facturación:</label>
+        <textarea id="facturacion" name="facturacion" required></textarea>
+
+        <label for="metodoPago">Método de Pago:</label>
+        <select id="metodoPago" name="metodoPago" required>
+            <option value="tarjeta">Tarjeta de Crédito</option>
+            <option value="paypal">PayPal</option>
+            <option value="debito">Debito</option>
+            <option value="transferencia">Transferencia</option>
+        </select>
+
+        <button type="submit">Comprar</button>
+    </form>
+    <footer>
+        <div class="redes">
+            <h6>Seguinos en: </h6>
+            <a href="#" target="_blank"><img src="/images/facebook.png" alt="Facebook" height="20" width="20"></a>
+            <a href="#" target="_blank"><img src="/images/twitter.png" alt="Twitter" height="20" width="20"></a>
+            <a href="#" target="_blank"><img src="/images/instagram.png" alt="Instagram" height="20" width="20"></a>
+        </div>
+        <div class="contacto">
+            <p>Contacto: UHSABADU@gmail.com</p>
+            <p>Teléfono: +123 456 789</p>
+        </div>
+    </footer>
+</body>
+</html>

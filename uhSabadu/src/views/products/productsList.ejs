@@ -7,10 +7,10 @@
 		<%- include('../partials/header.ejs') %>
 			<main>
 				<!-- todos los productos -->
+				<div class="cuerpo">
+					<% products.forEach(product=> { %>
 
-				<% products.forEach(product=> { %>
-					<div class="tarjetaProducto">
-						<section class="product-box">
+						<section class="tarjetaProducto">
 							<a href="/products/detail/<%= product.id %>">
 								<figure class="product-box_image">
 									<img src="/images/products/<%= product.image %>"
@@ -30,10 +30,10 @@
 								</article>
 							</a>
 						</section>
-					</div>
-					<% }) %>
 
-						<!-- /todos los productos -->
+					<% }) %>
+				</div>
+				<!-- /todos los productos -->
 			</main>
 			<!-- footer -->
 			<%- include('../partials/footer') %>

@@ -53,8 +53,8 @@ main {
     flex-wrap: wrap;
     left: 0px;
     top: 20px;
-    height: 520px;
-    width: 750px;
+    height: auto;
+    width: 98%;
     flex-direction: row;
     margin-left: 5px;
 }
@@ -65,50 +65,6 @@ main {
     top: 0px;
     height: 50px;
     width: 50px;
-}
-
-.main_img_lateral {
-    position: relative;
-    order: -1;
-    flex-direction: column;
-    height: 250px;
-    width: 50px;
-}
-
-.img_principal {
-    height: 210px;
-    width: 280px;
-}
-
-.img_lateral {
-    height: 50px;
-    width: 80px;
-}
-
-main ul {
-    list-style-type: none;
-}
-
-.main_caracteristicas {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    left: -80px;
-    top: 240px;
-
-}
-
-.features1 {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: row;
-}
-
-.features1_value {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    text-align: right;
 }
 
 footer {
@@ -140,6 +96,11 @@ form.Agregar button {
     cursor: pointer;
 }
 
+ .agregarSection {
+    display: absolute;
+    right: 3%;
+ }
+
 @media (min-width:361px) {
     /* DESKTOP */
 
@@ -158,82 +119,14 @@ form.Agregar button {
         flex-wrap: wrap;
         left: 0px;
         top: 20px;
-        height: 55vw;
+        height: auto;
         width: 95vw;
         flex-direction: row;
         margin-left: 3vw;
     }
-
     .main_img_principal {
-        position: absolute;
-        left: 19vw;
-        top: 0px;
-    }
-
-    .main_img_lateral {
-        position: absolute;
-        order: -1;
-        flex-direction: column;
-        height: auto;
-
-    }
-
-    .img_principal {
-        height: 28vw;
-        width: 40vw;
-        border: 1px;
-    }
-
-    .img_lateral {
-        height: 7vw;
-        width: 11vw;
-    }
-
-    main ul {
-        list-style-type: none;
-    }
-
-    .title__general__features {
-        position: absolute;
-        flex-direction: row;
-        left: 0px;
-        top: 30vw;
-    }
-
-    .main_caracteristicas {
-        display: flex;
-        position: absolute;
-        flex-direction: row;
-        left: 0px;
-        top: 32vw;
-
-    }
-
-    .features1 {
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: row;
-        margin-right: 8vw;
-    }
-
-    .features1_value {
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: column;
-        text-align: right;
-    }
-
-    .features2 {
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: row;
-    }
-
-    .features2_value {
-        display: flex;
-        flex-wrap: nowrap;
-        flex-direction: column;
-        text-align: right;
+        width: 28vw;
+        height: 21vw;
     }
 
     footer {
@@ -243,7 +136,14 @@ form.Agregar button {
         bottom: 0px;
         flex-direction: row;
         justify-content: space-around;
-
+        margin-top: 7%;
     }
+
+    .agregarSection {
+        position: absolute;
+        right: 3%;
+        bottom: 25%
+     }
+    
 
 }
