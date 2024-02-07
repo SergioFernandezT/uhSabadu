@@ -6,33 +6,43 @@
     <body>
         <%- include('../partials/header.ejs') %>
             <main>
-                <section class="main_img_principal">
-                    <img src="/images/products/<%= product.image %>" alt="imagen de producto <%= product.name %>">
-                </section>
-                <!-- <section class="main_img_lateral">
-                    <img class="img_lateral" src="images/lateral1.webp" alt="imagen lateral">
-                    <img class="img_lateral" src="images/lateral2.webp" alt="imagen lateral">
-                    <img class="img_lateral" src="images/lateral3.webp" alt="imagen lateral">
-                    <img class="img_lateral" src="images/lateral4.webp" alt="imagen lateral">
-                </section> -->
-                <section class="main_otros">
+                <article class="tarjetaProducto">
+                    <figure>
+                        <img class="main_img_principal" src="/images/products/<%= product.image %>"
+                            alt="imagen de producto <%= product.name %>">
+                    </figure>
+                    <h3 class="name">
+                        <%= product.name %>
+                    </h3>
 
-                </section>
-                <!-- <h3 class="title__general__features">CARACTERISTICAS GENERALES</h3> -->
-                <section class="main_caracteristicas">
+                    <p>
+                        <%= product.description %>
+                    </p>
+                </article>
 
-                </section>
-                <section class="agregarSection">
-                    <script>
-                        function irAproductCart() {
-                            window.location.href = "/products/productCart";
-                        }
-                    </script>
-                    <form class="Agregar">
-                        <button type="button" onclick="irAproductCart()"> + Agregar al carrito</button>
-                        
-                    </form>
-                </section>
+                <article class="product-price_data">
+                    <h2 class="price">
+                        $<%= toThousand(product.price) %>
+                    </h2>
+                    <h3 class="finalPrice">
+                        $<%= toThousand(product.price*(100-product.discount)/100) %>
+                    </h3>
+                    <span>
+                        <%= product.discount %> % OFF
+                    </span>
+                    <i class="fas fa-truck"></i>
+                    <section class="agregarSection">
+                        <script>
+                            function irAproductCart() {
+                                window.location.href = "/products/productCart";
+                            }
+                        </script>
+                        <form class="Agregar">
+                            <button type="button" onclick="irAproductCart()"> + Agregar al carrito</button>
+
+                        </form>
+                    </section>
+                </article>
             </main>
 
             <%- include('../partials/footer.ejs') %>
