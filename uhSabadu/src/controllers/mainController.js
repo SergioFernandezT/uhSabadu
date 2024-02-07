@@ -28,8 +28,7 @@ const controller = {
 	search: (req, res) => {
 		// Obtener informacion del formulario req.QUERY (GET)
 		let keywords = req.query.keywords.toUpperCase()
-		console.log(keywords)
-
+	
 		// Filtrar array de productos con la palabra buscada
 		let products = productsDataBase.filter(product => {
 			return (product.name.toUpperCase().includes(keywords) || 
@@ -42,7 +41,6 @@ const controller = {
 			// Si no lo encuentra
 			res.send('El producto buscado no existe')
 		}
-		
 	},
 };
 

@@ -37,4 +37,7 @@ router.put('/edit/:id', upload.single('image'), usersController.processEdit);
 /*** DELETE ONE USER***/
 router.delete('/delete/:id', usersController.delete);
 
+/*** ADMIN FEATURES ***/
+router.get('/admin', usersController.admin);
+
 module.exports = router;

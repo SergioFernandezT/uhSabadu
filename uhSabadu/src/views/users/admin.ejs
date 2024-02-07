@@ -1,0 +1,26 @@
+<%- include('../partials/head.ejs') %>
+	<title>uhSabadu</title>
+	<link rel="stylesheet" href="/css/style.css">
+	</head>
+
+	<body>
+		<%- include('../partials/header.ejs') %>
+			<main>
+				
+                <form action="/users/create">
+                    <button> Crear Usuario</button>
+                </form>
+                <form action="/users/">
+                    <button> Ver Usuarios</button>
+                </form>
+                <form action="/products/create">
+                    <button> Agregar Producto</button>
+                </form>
+
+			</main>
+			<!-- footer -->
+			<%- include('../partials/footer') %>
+				<!-- /footer -->
+	</body>
+
+	</html>

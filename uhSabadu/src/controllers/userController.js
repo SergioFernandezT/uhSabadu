@@ -118,7 +118,14 @@ const controller = {
 		fs.writeFileSync(usersFilePath, users)
 		// Redireccionar
 		res.redirect('/users')
-	}
+	},
+	admin: (req, res) => {
+		
+		let adminPath = path.join(__dirname, "../views/users", "admin.ejs");
+		res.render(adminPath, )
+	},
+
+
 };
 
 module.exports = controller;
