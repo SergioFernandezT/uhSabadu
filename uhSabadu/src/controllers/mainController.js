@@ -4,9 +4,9 @@ const path = require('path');
 const productsFilePath = path.join(__dirname, '../database/productsDataBase.json');
 const productsDataBase = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
-const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
 const controller = {
+	toThousand : n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."),
+
 	index: (req, res) => {
 		let homePath = path.join(__dirname, "../views", "home.ejs");
 		res.render(homePath)
@@ -36,7 +36,7 @@ const controller = {
 		})
 		let homePath = path.join(__dirname, "../views/products", "productsList.ejs");
 		if (products) {
-			res.render(homePath, { products , toThousand })
+			res.render(homePath, { products , this:toThousand  })
 		}else {
 			// Si no lo encuentra
 			res.send('El producto buscado no existe')
