@@ -18,6 +18,8 @@ const storage = multer.diskStorage({
     }
 })
 
+const loginCheck = require('../middlewares/login');
+
 const upload = multer({ storage })
 
 /*** GET ALL USERS ***/
@@ -26,6 +28,10 @@ router.get('/', usersController.list);
 /*** CREATE ONE USER ***/
 router.get('/create', usersController.createForm);
 router.post('/create', upload.single('image'), usersController.processCreate);
+
+/*** REGISTER ONE USER ***/
+router.get('/register', usersController.registerForm);
+router.post('/register', upload.single('image'), usersController.processRegister);
 
 /*** GET ONE USER ***/
 router.get('/detail/:id', usersController.detail);
@@ -37,7 +43,10 @@ router.put('/edit/:id', upload.single('image'), usersController.processEdit);
 /*** DELETE ONE USER***/
 router.delete('/delete/:id', usersController.delete);
 
-/*** ADMIN FEATURES ***/
-router.get('/admin', usersController.admin);
+/*** LOGIN FEATURES ***/
+router.post('/', loginCheck, usersController.loginProcess);
+
+// /*** ADMIN FEATURES ***/
+// router.get('/admin',  usersController.admin);
 
 module.exports = router;

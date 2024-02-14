@@ -17,16 +17,13 @@
 										alt="Imagen de usuario <%= user.name %>">
 								</figure>
 								<article class="product-box_data">
-									<h2>
-										$<%= toThousand(user.price) %>
-									</h2>
-									<span>
-										<%= user.discount %> % OFF
-									</span>
 									<p>
-										<%= user.name %>
+										<%= user.name %> <%= user.surname %>
 									</p>
-									<i class="fas fa-truck"></i>
+									<p>
+										<%= user.email %>
+									</p>
+									
 								</article>
 							</a>
 						</section>

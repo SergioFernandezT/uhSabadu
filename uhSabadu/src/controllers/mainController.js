@@ -11,10 +11,10 @@ const controller = {
 		let homePath = path.join(__dirname, "../views", "home.ejs");
 		res.render(homePath)
 	},
-	register: (req, res) => {
-		let auxPath = path.join(__dirname, "../views", "register.ejs");
-		res.render(auxPath);
-	},
+	// register: (req, res) => {
+	// 	let auxPath = path.join(__dirname, "../views", "register.ejs");
+	// 	res.render(auxPath);
+	// },
 
 	productDetail: (req, res) => {
 		let auxPath = path.join(__dirname, "../views", "productDetail-backup.ejs");

@@ -1,26 +1,30 @@
 const fs = require('fs');
 const path = require('path');
 
+const bcryptjs = require('bcryptjs');
+const {
+	validationResult
+} = require('express-validator');
+
 const usersFilePath = path.join(__dirname, '../database/', 'usersDataBase.json');
 let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'));
-
-const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const controller = {
 	// Root - Show all users
 	list: (req, res) => {
 		let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'));
 		let homePath = path.join(__dirname, "../views/users", "usersList.ejs");
-		res.render(homePath, { users, toThousand })
+		res.render(homePath, { users})
 	},
 
 	// Detail - Detail from one user
 	detail: (req, res) => {
+		let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'));
 		let user = users.find(user => user.id == req.params.id)
 		// console.log('user-linea-18', user);
 		let auxPath = path.join(__dirname, "../views/users", "userDetail.ejs");
 		if (user) {
-			return res.render(auxPath, { user, toThousand })
+			return res.render(auxPath, { user })
 		}
 		res.send(`
 		<h1>El usuario que buscas no existe</h1>
@@ -57,6 +61,37 @@ const controller = {
 		res.redirect('/users')
 	},
 
+	// Register - Form to Register
+	registerForm: (req, res) => {
+		let auxPath = path.join(__dirname, "../views/users", "userRegister.ejs");
+		res.render(auxPath)
+	},
+
+	// Register -  Method to store
+	processRegister: (req, res) => {
+
+		// Armamos el nuevo usuario
+		const newUser = {
+			id: Date.now(),
+			name: req.body.nombre,
+			surname: req.body.apellido,
+			address: req.body.direccion,
+			country: req.body.pais,
+			email: req.body.email,
+			codArea: req.body.codigoArea,
+			tellphone: req.body.telefono,
+			image: req.file?.filename || 'default-img.png',
+		}
+		// Agregamos el nuevo usuario al listado
+		users.push(newUser)
+		// Convertimos a json el objeto javascript
+		let usersJSON = JSON.stringify(users, null, 2)
+		// Escribimos el json
+		fs.writeFileSync(usersFilePath, usersJSON)
+
+		res.redirect('/users')
+	},
+
 	// Update - Form to edit
 	editForm: (req, res) => {
 		// Obtener los datos del usuario a editar
@@ -78,13 +113,16 @@ const controller = {
 		let id = req.params.id
 		// Buscamos el usuario a editar con ese id
 		let userEdit = users.find(user => user.id == id)
+		
 		// Si lo encuentra
 		if (userEdit) {
 			userEdit.name = req.body.name || userEdit.name
-			userEdit.price = req.body.price || userEdit.price
-			userEdit.discount = req.body.discount || userEdit.discount
-			userEdit.description = req.body.description || userEdit.description
-			userEdit.category = req.body.category || userEdit.category
+			userEdit.surname = req.body.surname || userEdit.surname
+			userEdit.country = req.body.country || userEdit.country
+			userEdit.codArea = req.body.codArea || userEdit.codArea
+			userEdit.tellphone = req.body.tellphone || userEdit.tellphone
+			userEdit.address = req.body.address || userEdit.address
+			userEdit.email = req.body.email || userEdit.email
 			// Estaria bueno borrar la vieja si sube una nueva
 			userEdit.image = req.file?.filename || userEdit.image
 
@@ -119,13 +157,13 @@ const controller = {
 		// Redireccionar
 		res.redirect('/users')
 	},
-	admin: (req, res) => {
-		
-		let adminPath = path.join(__dirname, "../views/users", "admin.ejs");
-		res.render(adminPath, )
+
+	loginProcess: (req, res) => {
+		if (req.isAdmin) {
+			let adminPath = path.join(__dirname, "../views/users", "admin.ejs");
+			res.render(adminPath,)
+		} else res.redirect('/products')
 	},
-
-
 };
 
 module.exports = controller;

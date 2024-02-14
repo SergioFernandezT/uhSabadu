@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1707460829615" clover="3.2.0">
-  <project timestamp="1707460829615" name="All files">
+<coverage generated="1707461622425" clover="3.2.0">
+  <project timestamp="1707461622425" name="All files">
     <metrics statements="22" coveredstatements="7" conditionals="4" coveredconditionals="0" methods="7" coveredmethods="1" elements="33" coveredelements="8" complexity="0" loc="22" ncloc="22" packages="1" files="1" classes="1"/>
     <file name="mainController.js" path="C:\Users\firea\Documents\FullStackDH\TrabajoIntegrador\grupo_4_eCommerceApp\uhSabadu\src\controllers\mainController.js">
       <metrics statements="22" coveredstatements="7" conditionals="4" coveredconditionals="0" methods="7" coveredmethods="1"/>
