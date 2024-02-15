@@ -1,9 +1,10 @@
 // 4. Editar la información de un usuario
 
 const fs = require('fs');
+const path = require('path')
 
 const User = {
-	fileName: './database/users.json',
+	fileName: path.join(__dirname, '../../database/usersDataBase.json'),
 
 	findAll: function () {
 		return JSON.parse(fs.readFileSync(this.fileName, 'utf-8'));
@@ -26,7 +27,7 @@ const User = {
 
 	findByField: function (field, text) {
 		let allUsers = this.findAll();
-		let userFound = allUsers.find(oneUser => oneUser[field] === text);
+		let userFound = allUsers.find(oneUser => oneUser[field] == text);
 		return userFound;
 	},
 
@@ -43,9 +44,17 @@ const User = {
 
 	delete: function (id) {
 		let allUsers = this.findAll();
-		let finalUsers = allUsers.filter(oneUser => oneUser.id !== id);
+		let finalUsers = allUsers.filter(oneUser => oneUser.id != id);
 		fs.writeFileSync(this.fileName, JSON.stringify(finalUsers, null, ' '));
 		return true;
+	},
+
+	update: function (newUserData) {
+		let allUsers = this.findAll();
+		let userFinded = allUsers.find( oneUser => oneUser.id == newUserData.id);
+		userFinded = newUserData
+		fs.writeFileSync(this.fileName, JSON.stringify(allUsers, null, ' '));
+		return newUserData;
 	}
 }
 

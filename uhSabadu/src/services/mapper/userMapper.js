@@ -1,5 +1,5 @@
-const userDTO = require("../dto/userDTO")
-const user = require("../entity/user")
+const userDTO = require("../../models/dto/userDTO")
+const user = require("../../models/entity/user")
 
 module.exports = function (req, res, next) {
 

@@ -1,5 +1,5 @@
 node_modules/**
-.vscode/**
-coverage/**
+.vscode/
+coverage/
 uhSabadu/src/database/productsDataBase.json
 uhSabadu/src/database/usersDataBase.json
