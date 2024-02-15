@@ -7,7 +7,6 @@ const {
 } = require('express-validator');
 
 const User = require('../models/entity/user');
-const { log } = require('console');
 
 const controller = {
 	// Root - Show all users
@@ -95,14 +94,13 @@ const controller = {
 	},
 	// Update - Method to update
 	processEdit: (req, res) => {
-		let userEdit = User.findByField('id' , Number(req.params.id))
-		console.log(req.params.id, "un texcto");
+		let userEdit = User.findByPk((req.params.id))
+		
 		// Si lo encuentra
 		if (userEdit) {
 			userEdit.id = Number(req.body.id) || userEdit.id
 			userEdit.name = req.body.name || userEdit.name
 			userEdit.surname = req.body.surname || userEdit.surname
-			console.log(req.body.surname)
 			userEdit.country = req.body.country || userEdit.country
 			userEdit.codArea = req.body.codArea || userEdit.codArea
 			userEdit.tellphone = req.body.tellphone || userEdit.tellphone
@@ -110,9 +108,8 @@ const controller = {
 			userEdit.email = req.body.email || userEdit.email
 			// Estaria bueno borrar la vieja si sube una nueva
 			userEdit.image = req.file?.filename || userEdit.image
-
 			// Convertir a JSON y Sobre-escribir el json de usuarios
-			let dataNew = User.update(userEdit)
+			User.update(userEdit)
 			// Redirigir al listado
 			res.redirect('/users/detail/'+userEdit.id)
 		} else {

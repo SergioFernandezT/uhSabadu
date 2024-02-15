@@ -21,7 +21,7 @@ const User = {
 
 	findByPk: function (id) {
 		let allUsers = this.findAll();
-		let userFound = allUsers.find(oneUser => oneUser.id === id);
+		let userFound = allUsers.find(oneUser => oneUser.id == id);
 		return userFound;
 	},
 
@@ -51,8 +51,9 @@ const User = {
 
 	update: function (newUserData) {
 		let allUsers = this.findAll();
-		let userFinded = allUsers.find( oneUser => oneUser.id == newUserData.id);
-		userFinded = newUserData
+		let userFinded = allUsers.find(user => user.id == newUserData.id)
+		let position = allUsers.indexOf(userFinded)
+		allUsers[position] = newUserData
 		fs.writeFileSync(this.fileName, JSON.stringify(allUsers, null, ' '));
 		return newUserData;
 	}
