@@ -3,7 +3,7 @@
 const fs = require('fs');
 
 const Product = {
-	fileName: './database/products.json',
+	fileName: '../../database/products.json',
 
 	findAll: function () {
 		return JSON.parse(fs.readFileSync(this.fileName, 'utf-8'));
@@ -40,6 +40,15 @@ const Product = {
 		allproducts.push(newproduct);
 		fs.writeFileSync(this.fileName, JSON.stringify(allproducts, null, ' '));
 		return newproduct;
+	},
+
+	update: function (newUserData) {
+		let allUsers = this.findAll();
+		let userFinded = allUsers.find(user => user.id == newUserData.id)
+		let position = allUsers.indexOf(userFinded)
+		allUsers[position] = newUserData
+		fs.writeFileSync(this.fileName, JSON.stringify(allUsers, null, ' '));
+		return newUserData;
 	},
 
 	delete: function (id) {

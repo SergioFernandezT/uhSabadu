@@ -1,0 +1,55 @@
+<%- include('../partials/head'); %>
+	<link rel="stylesheet" href="/css/style.css" />
+
+	<body>
+		<%- include('../partials/header'); %>
+
+			<!-- Login-Form -->
+			<div class="container my-5">
+				<div class="row justify-content-center">
+					<div class="col-md-10">
+						<h2>Formulario de Login</h2>
+
+						<form method="POST" action="/users/login">
+							<div class="row">
+								<div class="col-md-6 my-2">
+									<div class="form-group">
+										<label><b>Correo electrónico:</b></label>
+										<input type="text" id="email" name="email" required>
+										<% if (locals.errors && errors.email) { %>
+											<div class="text-danger">
+												<%= errors.email.msg %>
+											</div>
+											<% } %>
+									</div>
+								</div>
+								<div class="col-md-6 my-2">
+									<div class="form-group">
+										<label><b>Password:</b></label>
+										<input type="password"  id="password" name="password" required>
+										<div class="invalid-feedback">
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6 my-2">
+									<div class="form-group form-check">
+										<label class="form-check-label">
+											<input type="checkbox" class="form-check-input"
+												name="remember_user">Recordar mi usuario
+										</label>
+									</div>
+								</div>
+								<div class="col-12 my-3">
+									<button type="submit" class="btn btn-primary">Loguearme</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- //Login-Form -->
+
+			<%- include('../partials/footer'); %>
+	</body>
+
+	</html>

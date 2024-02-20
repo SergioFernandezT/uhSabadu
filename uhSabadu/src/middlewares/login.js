@@ -1,12 +1,13 @@
 const usersFunctions = require("../models/entity/user")
 
 module.exports = function (req, res, next) {
-    //let user = req.isAdmin
-    let user = 'admin'
-    if (user == 'admin') {
+    
+    if (req.body?.email == 'admin') {
+        console.log('entro')
         req.isAdmin = true
         next()
     } else {
-        res.redirect('/')
+        res.redirect('/users/login')
+        
     }
 }

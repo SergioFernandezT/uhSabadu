@@ -48,5 +48,14 @@
     "category": "in-sale",
     "description": "Experiencia visual excepcional. Mirá tus series y películas favoritas con la mejor definición.Tendrás colores brillantes y detalles precisos en todos tus contenidos.Disfrutá aún más del mejor entretenimiento gracias a su vasta pantalla y ángulos de visión amplios.",
     "image": "default-img.png"
+  },
+  {
+    "id": 1708040423693,
+    "name": "capo",
+    "price": "5000",
+    "discount": "15",
+    "category": "",
+    "description": "",
+    "image": "default-img.png"
   }
 ]

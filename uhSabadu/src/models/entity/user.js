@@ -7,7 +7,8 @@ const User = {
 	fileName: path.join(__dirname, '../../database/usersDataBase.json'),
 
 	findAll: function () {
-		return JSON.parse(fs.readFileSync(this.fileName, 'utf-8'));
+		// ineficiente, va a retrasar las busqueda preguntar si cada usuario es admin
+		return (JSON.parse(fs.readFileSync(this.fileName, 'utf-8'))).filter(oneUser => oneUser.rol != "admin");
 	},
 
 	generateId: function () {
@@ -41,14 +42,7 @@ const User = {
 		fs.writeFileSync(this.fileName, JSON.stringify(allUsers, null, ' '));
 		return newUser;
 	},
-
-	delete: function (id) {
-		let allUsers = this.findAll();
-		let finalUsers = allUsers.filter(oneUser => oneUser.id != id);
-		fs.writeFileSync(this.fileName, JSON.stringify(finalUsers, null, ' '));
-		return true;
-	},
-
+	
 	update: function (newUserData) {
 		let allUsers = this.findAll();
 		let userFinded = allUsers.find(user => user.id == newUserData.id)
@@ -56,6 +50,13 @@ const User = {
 		allUsers[position] = newUserData
 		fs.writeFileSync(this.fileName, JSON.stringify(allUsers, null, ' '));
 		return newUserData;
+	},
+
+	delete: function (id) {
+		let allUsers = this.findAll();
+		let finalUsers = allUsers.filter(oneUser => oneUser.id != id);
+		fs.writeFileSync(this.fileName, JSON.stringify(finalUsers, null, ' '));
+		return true;
 	}
 }
 

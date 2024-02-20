@@ -5,46 +5,43 @@ const router = express.Router();
 // ************ Controller Require ************
 const usersController = require('../controllers/userController');
 
-const multer = require('multer')
-const path = require('path')
+// const path = require('path')
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uhSabadu/public/images/users')
-    },
-    filename: (req, file, cb) => {
-        let fileName = `img_${Date.now()}${path.extname(file.originalname)}`
-        cb(null, fileName)
-    }
-})
+// Middlewares
+const uploadFile = require('../middlewares/multerMiddleware');
+const validations = require('../middlewares/userMiddlewares/validateRegisterMiddleware');
+const guestMiddleware = require('../middlewares/userMiddlewares/guestMiddleware');
+const authMiddleware = require('../middlewares/userMiddlewares/authMiddleware');
 
 const loginCheck = require('../middlewares/login');
-
-const upload = multer({ storage })
 
 /*** GET ALL USERS ***/
 router.get('/', usersController.list);
 
 /*** CREATE ONE USER ***/
 router.get('/create', usersController.createForm);
-router.post('/create', upload.single('image'), usersController.processCreate);
+router.post('/create', uploadFile.single('image'), usersController.processCreate);
 
 /*** REGISTER ONE USER ***/
-router.get('/register', usersController.registerForm);
-router.post('/register', upload.single('image'), usersController.processRegister);
+router.get('/register', guestMiddleware, usersController.registerForm);
+router.post('/register', uploadFile.single('image'), validations, usersController.processRegister);
 
 /*** GET ONE USER ***/
 router.get('/detail/:id', usersController.detail);
 
 /*** EDIT ONE USER ***/
 router.get('/edit/:id', usersController.editForm);
-router.put('/edit/:id', upload.single('image'), usersController.processEdit);
+router.put('/edit/:id', uploadFile.single('image'), usersController.processEdit);
 
 /*** DELETE ONE USER***/
 router.delete('/delete/:id', usersController.delete);
 
-/*** LOGIN FEATURES ***/
-router.post('/', loginCheck, usersController.loginProcess);
+/*** LOGIN USER ***/
+router.get('/login', usersController.login);
+router.post('/login',  usersController.loginProcess);
+
+// Logout
+router.get('/logout/', usersController.logout);
 
 // /*** ADMIN FEATURES ***/
 // router.get('/admin',  usersController.admin);

@@ -8,18 +8,19 @@
   "email": "perro@mail.com",
   "codArea": "377",
   "tellphone": "37777",
-  "image": "default-img.png",
-  "surnamename": "peres"
+  "rol": "customer",
+  "image": "default-img.png"
  },
  {
   "id": 1707891390957,
   "name": "gato",
-  "surname": "verde",
+  "surname": "rojo",
   "address": "una casa",
   "country": "bolivia",
   "email": "catcat@mail",
   "codArea": "111",
   "tellphone": "1111",
+  "rol": "customer",
   "image": "default-img.png"
  },
  {
@@ -30,7 +31,19 @@
   "email": "catcat@mail",
   "codArea": "377",
   "tellphone": "37777",
+  "rol": "customer",
   "image": "default-img.png",
   "id": 1707891390958
+ },
+ {
+  "name": "pipo@2",
+  "surname": "peres",
+  "address": "una casa",
+  "country": "algo",
+  "email": "perro@mail.com",
+  "codArea": "377",
+  "tellphone": "37777",
+  "image": "default-img.png",
+  "id": 1707891390959
  }
 ]
