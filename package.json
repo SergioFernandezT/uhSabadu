@@ -4,12 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon -q ./uhSabadu/src/app.js -i *.json",
+    "dev": "nodemon -q ./uhSabadu/src/app.js --ignore *.json",
     "coverage": "jest --collect-coverage",
     "test": "jest"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["dev","test","frontend","backend"],
+  "author": "SergioFT & cia",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

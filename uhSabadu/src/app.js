@@ -27,7 +27,10 @@ app.use(cookies());
 
 const publicPath = path.join(__dirname, "../public");
 app.use(express.static(publicPath));
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
+// Rutas 
 app.use('/',rutasMain)
 app.use('/products',rutasProducts)
 app.use('/users',rutasUsers)
