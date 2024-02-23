@@ -43,6 +43,10 @@ router.post('/login',  usersController.loginProcess);
 // Logout
 router.get('/logout/', usersController.logout);
 
+/*** PASSWORD RECOVERY ***/
+router.get('/resetPassword', usersController.passwordRecoveryView);
+router.post('/resetPassword',  usersController.passwordRecoveryProcess);
+
 // /*** ADMIN FEATURES ***/
 // router.get('/admin',  usersController.admin);
 

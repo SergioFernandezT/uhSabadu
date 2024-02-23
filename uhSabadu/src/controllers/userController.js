@@ -135,7 +135,7 @@ const controller = {
 	},
 
 	login: (req, res) => {
-		let auxPath = path.join(__dirname, "../views/users", "userLoginForm.ejs");
+		let auxPath = path.join(__dirname, "../views/users", "userLogin.ejs");
 		res.render(auxPath);
 	},
 
@@ -164,7 +164,15 @@ const controller = {
 		res.clearCookie('userEmail');
 		req.session.destroy();
 		return res.redirect('/');
-	}
+	},
+	passwordRecoveryView: (req, res) => {
+		let auxPath = path.join(__dirname, "../views/users", "userLogin.ejs");
+		res.render(auxPath);
+	},
+	passwordRecoveryProcess: (req, res) => {
+		let auxPath = path.join(__dirname, "../views/users", "userLogin.ejs");
+		res.render(auxPath);
+	},
 };
 
 module.exports = controller;
