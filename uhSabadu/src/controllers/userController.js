@@ -140,9 +140,7 @@ const controller = {
 	},
 
 	loginProcess: (req, res) => {
-		let email =  req.body?.email;
 		let userToLogin = User.findByField('email', req.body?.email);
-		console.log(email,req.body?.password)
 		res.cookie('userEmail', req.body?.email, { maxAge: (1000 * 60) * 60 })
 		if (req.body?.remember_user) {
 			res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })
@@ -152,11 +150,10 @@ const controller = {
 			let adminPath = path.join(__dirname, "../views/users", "admin.ejs");
 			res.render(adminPath,)
 		}
-		if (req.isAdmin) {
+		if (req.session.isAdmin) {
 			let adminPath = path.join(__dirname, "../views/users", "admin.ejs");
 			res.render(adminPath,)
 		} else {
-			console.table('no hay email')
 			res.redirect('/products')
 		}
 	},

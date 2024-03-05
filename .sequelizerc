@@ -1,0 +1,8 @@
+const path = require('path')
+
+module.exports = {
+config: path.resolve('./uhSabadu/src/database/config', 'config.js'),
+'models-path': path.resolve('./uhSabadu/src/database/models'),
+'seeders-path': path.resolve('./uhSabadu/src/database/seeders'),
+'migrations-path': path.resolve('./uhSabadu/src/database/migrations'),
+}
