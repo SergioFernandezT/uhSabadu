@@ -2,7 +2,7 @@
   "name": "uhsabadu",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "./uhSabadu/src/app.js",
   "scripts": {
     "dev": "nodemon -q ./uhSabadu/src/app.js --ignore *.json",
     "coverage": "jest --collect-coverage",

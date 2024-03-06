@@ -122,7 +122,7 @@ const controller = {
 	delete: (req, res) => {
 
 		// Obtener el id del usuario
-		let id = req.params.id
+		//let id = req.params.id
 
 		// Quitar imagen
 		let userToDelete = User.findByField('id', req.params.id)

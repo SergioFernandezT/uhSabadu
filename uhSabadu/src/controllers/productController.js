@@ -6,6 +6,8 @@ let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
+const db = require('../database/models');
+
 const controller = {
 	// Root - Show all products
 	list: (req, res) => {
@@ -123,6 +125,20 @@ const controller = {
 	productCart: (req, res) => {
 		let auxPath = path.join(__dirname, "../views/products", "productCart.ejs");
 		res.render(auxPath);
+	},
+
+	listDB: async (req, res) => {
+		try {
+			db.Product.findAll()
+				.then(products => {
+					let homePath = path.join(__dirname, "../views/products", "productsList.ejs");
+					res.render(homePath, { products, toThousand })
+				})
+
+		} catch (error) {
+			console.log(error)
+		}
+
 	},
 };
 
