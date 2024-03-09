@@ -1,15 +1,20 @@
 const fs = require('fs');
 const path = require('path');
-
 const bcryptjs = require('bcryptjs');
+
 const {
 	validationResult
 } = require('express-validator');
 
 const User = require('../models/entity/user');
 
+let viewsPath =  (view) => { return(path.join(__dirname, "../views/users",view))}
+
 const controller = {
-	// Root - Show all users
+	
+	// viewsPath: () => path.join(__dirname, "../views/users"),
+	
+    // Root - Show all users
 	list: (req, res) => {
 		let users = User.findAll()
 		let homePath = path.join(__dirname, "../views/users", "usersList.ejs");
@@ -69,6 +74,7 @@ const controller = {
 			address: req.body.direccion,
 			country: req.body.pais,
 			email: req.body.email,
+			password: bcryptjs.hashSync(req.body.password, 10),
 			codArea: req.body.codigoArea,
 			tellphone: req.body.telefono,
 			image: req.file?.filename || 'default-img.png',
@@ -135,28 +141,45 @@ const controller = {
 	},
 
 	login: (req, res) => {
-		let auxPath = path.join(__dirname, "../views/users", "userLogin.ejs");
-		res.render(auxPath);
+		res.render(viewsPath("userLogin"));
 	},
 
 	loginProcess: (req, res) => {
-		let userToLogin = User.findByField('email', req.body?.email);
-		res.cookie('userEmail', req.body?.email, { maxAge: (1000 * 60) * 60 })
-		if (req.body?.remember_user) {
-			res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })
-		}
-
+		let userToLogin = User.findByField('email', req.body.email);
 		if (userToLogin) {
-			let adminPath = path.join(__dirname, "../views/users", "admin.ejs");
-			res.render(adminPath,)
+			let isOkThePassword = bcryptjs.compareSync(req.body.password, userToLogin.password);
+			if (isOkThePassword) {
+				delete userToLogin.password;
+				req.session.userLogged = userToLogin;
+				if (req.body.remember_user) {
+					res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })
+				}
+				return res.redirect('/users/profile');
+			}
+			return res.render(viewsPath('userLogin'), {
+				errors: {
+					email: {
+						msg: 'Las credenciales son inválidas'
+					}
+				}
+			});
 		}
-		if (req.session.isAdmin) {
-			let adminPath = path.join(__dirname, "../views/users", "admin.ejs");
-			res.render(adminPath,)
-		} else {
-			res.redirect('/products')
-		}
+		return res.render(viewsPath('userLogin'), {
+			errors: {
+				email: {
+					msg: 'No se encuentra este email en nuestra base de datos'
+				}
+			}
+		});
+
 	},
+
+	profile: (req, res) => {
+		return res.render(viewsPath('userProfile'), {
+			user: req.session.userLogged
+		});
+	},
+
 	logout: (req, res) => {
 		res.clearCookie('userEmail');
 		req.session.destroy();

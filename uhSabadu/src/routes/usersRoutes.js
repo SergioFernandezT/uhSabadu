@@ -13,7 +13,7 @@ const validations = require('../middlewares/userMiddlewares/validateRegisterMidd
 const guestMiddleware = require('../middlewares/userMiddlewares/guestMiddleware');
 const authMiddleware = require('../middlewares/userMiddlewares/authMiddleware');
 
-const loginCheck = require('../middlewares/login');
+const loginCheck = require('../middlewares/loginUserMiddleware');
 
 /*** GET ALL USERS ***/
 router.get('/', usersController.list);
@@ -38,7 +38,10 @@ router.delete('/delete/:id', usersController.delete);
 
 /*** LOGIN USER ***/
 router.get('/login',  usersController.login);
-router.post('/login', loginCheck, usersController.loginProcess);
+router.post('/login',  usersController.loginProcess);
+
+/*** USER PROFILE ***/
+router.get('/profile',  usersController.profile);
 
 // Logout
 router.get('/logout/', usersController.logout);
