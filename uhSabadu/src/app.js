@@ -7,9 +7,9 @@ const methodOverride = require('method-override');
 const userLoggedMiddleware = require('./middlewares/userMiddlewares/userLoggedMiddleware');
 
 // Requiriendo  archivos de rutas
-const rutasMain = require('./routes/mainRoute')
-const rutasProducts = require('./routes/productsRoutes')
-const rutasUsers = require('./routes/usersRoutes')
+const rutasMain = require('./routes/mainRoute.routes')
+const rutasProducts = require('./routes/productsRoutes.routes')
+const rutasUsers = require('./routes/usersRoutes.routes')
 
 const app = express();
 
