@@ -26,42 +26,6 @@
   "image": "default-img.png"
  },
  {
-  "name": "pipo",
-  "surname": "el cpm",
-  "address": "una casa",
-  "country": "bolivia",
-  "email": "catcat@mail",
-  "password": "1234",
-  "codArea": "377",
-  "tellphone": "37777",
-  "rol": "customer",
-  "image": "default-img.png",
-  "id": 1707891390958
- },
- {
-  "name": "pipo@2",
-  "surname": "peres",
-  "address": "una casa",
-  "country": "algo",
-  "email": "perro@mail.com",
-  "password": "1234",
-  "codArea": "377",
-  "tellphone": "37777",
-  "image": "default-img.png",
-  "id": 1707891390959
- },
- {
-  "name": "pipo",
-  "surname": "peres",
-  "address": "una casa",
-  "country": "algo",
-  "email": "123@1",
-  "codArea": "377",
-  "tellphone": "37777",
-  "image": "default-img.png",
-  "id": 1707891390960
- },
- {
   "name": "pipo@2",
   "surname": "peres",
   "address": "una casa",
@@ -72,5 +36,17 @@
   "tellphone": "37777",
   "image": "default-img.png",
   "id": 1707891390961
- }
+ },
+ {
+    "name": "El admin",
+    "surname": "peres",
+    "address": "una casa",
+    "country": "bolivia",
+    "email": "admin@admin",
+    "password": "$2a$10$M4AZzTi2Y7PthQ4opRQJau2gOiIWaMKupNJcZQd4FU2Ou3lWkf9Bq",
+    "codArea": "377",
+    "tellphone": "37777",
+    "image": "default-img.png",
+    "id": 1707891390961
+   }
 ]

@@ -37,7 +37,7 @@ router.put('/edit/:id', uploadFile.single('image'), usersController.processEdit)
 router.delete('/delete/:id', usersController.delete);
 
 /*** LOGIN USER ***/
-router.get('/login',  usersController.login);
+router.get('/login',  guestMiddleware,usersController.login);
 router.post('/login',  usersController.loginProcess);
 
 /*** USER PROFILE ***/
