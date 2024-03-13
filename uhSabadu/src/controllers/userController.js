@@ -25,9 +25,8 @@ const controller = {
 	detail: (req, res) => {
 		// preguntar como solucionar la comparacion de number con string
 		let user = User.findByField('id', req.params.id)
-		let auxPath = path.join(__dirname, "../views/users", "userDetail.ejs");
 		if (user) {
-			return res.render(auxPath, { user })
+			return res.render(viewsPath('userDetail'), { user })
 		}
 		res.send(`
 		<h1>El usuario que buscas no existe</h1>
@@ -37,8 +36,7 @@ const controller = {
 
 	// Create - Form to create
 	createForm: (req, res) => {
-		let auxPath = path.join(__dirname, "../views/users", "userCreate.ejs");
-		res.render(auxPath)
+		res.render(viewsPath("userCreate"))
 	},
 
 	// Create -  Method to store
@@ -60,8 +58,7 @@ const controller = {
 
 	// Register - Form to Register
 	registerForm: (req, res) => {
-		let auxPath = path.join(__dirname, "../views/users", "userRegister.ejs");
-		res.render(auxPath)
+		res.render(viewsPath('userRegister'))
 	},
 
 	// Register -  Method to store
@@ -90,8 +87,7 @@ const controller = {
 		let user = User.findByField('id', req.params.id)
 		if (user) {
 			// Renderizar la vista con los datos
-			let auxPath = path.join(__dirname, "../views/users", "userEdit.ejs");
-			return (res.render(auxPath, { user }))
+			return (res.render(viewsPath('userEdit'), { user }))
 		}
 		res.send(`
 		<h1>El usuario que intentas editar no existe</h1>
@@ -186,12 +182,11 @@ const controller = {
 		return res.redirect('/');
 	},
 	passwordRecoveryView: (req, res) => {
-		let auxPath = path.join(__dirname, "../views/users", "userLogin.ejs");
-		res.render(auxPath);
+		res.render(viewsPath('userLogin'));
 	},
 	passwordRecoveryProcess: (req, res) => {
-		let auxPath = path.join(__dirname, "../views/users", "userLogin.ejs");
-		res.render(auxPath);
+		
+		//TODO
 	},
 };
 
