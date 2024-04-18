@@ -22,7 +22,6 @@ const upload = multer({ storage })
 
 /*** GET ALL PRODUCTS ***/
 router.get('/', productsController.list);
-router.get('/DB', productsController.listDB);
 
 /*** CREATE ONE PRODUCT ***/
 router.get('/create', productsController.createForm);
@@ -40,5 +39,8 @@ router.delete('/delete/:id', productsController.delete);
 
 /*** BUY PROCCESS ***/
 router.get('/productCart', productsController.productCart);
+
+/*** SEARCH PROCCESS ***/
+router.get('/search', productsController.search);
 
 module.exports = router;

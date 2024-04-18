@@ -9,16 +9,12 @@ let viewsPath = (view) => { return (path.join(__dirname, "../views/products", vi
 
 const { Product } = require("../database/models");
 const db = require("../database/models/index");
+const { search } = require('../routes/usersRoutes.routes');
 const Op = db.Sequelize.Op;
 
 
 const controller = {
 	// Root - Show all products
-	// list: (req, res) => {
-	// 	let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-	// 	let homePath = path.join(__dirname, "../views/products", "productsList.ejs");
-	// 	res.render(homePath, { products, toThousand })
-	// },
 	list: async (req, res) => {
 		try {
 			let products = await Product.findAll()
@@ -28,19 +24,6 @@ const controller = {
 	},
 
 	// Detail - Detail from one product
-	// detail: (req, res) => {
-	// 	let product = products.find(product => product.id == req.params.id)
-	// 	// console.log('product-linea-18', product);
-	// 	let auxPath = path.join(__dirname, "../views/products", "productDetail.ejs");
-	// 	if (product) {
-	// 		return res.render(auxPath, { product, toThousand })
-	// 	}
-	// 	res.send(`
-	// 	<h1>El producto que buscas no existe</h1>
-	// 	<a href='/products'>Voler al catalogo</a>
-	// 	`)
-	// },
-
 	detail: async (req, res) => {
 		// preguntar como solucionar la comparacion de number con string
 		// let product = await User.findOne('id', req.params.id)
@@ -60,7 +43,7 @@ const controller = {
 		}
 
 		res.send(`
-		<h1>El usuario que buscas no existe</h1>
+		<h1>El productoque buscas no existe</h1>
 		<a href='/users'>Voler al catalogo</a>
 		`)
 	},
@@ -162,19 +145,22 @@ const controller = {
 		res.render(auxPath);
 	},
 
-	listDB: async (req, res) => {
+	search: async (req, res) => {
 		try {
-			db.Product.findAll()
-				.then(products => {
-					let homePath = path.join(__dirname, "../views/products", "productsList.ejs");
-					res.render(homePath, { products, toThousand })
-				})
-
+			let products = await Product.findAll({
+				where: {
+					description: { [Op.like]: `%${req.query.keywords}%` },
+				},
+			});
+			if (products.length > 0) {
+				return res.render(viewsPath("productsList"), { products, toThousand })
+			}
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 		}
-
-	},
+		
+		return res.render(viewsPath("productsList"), { products:'', toThousand })
+	}
 };
 
 module.exports = controller;
