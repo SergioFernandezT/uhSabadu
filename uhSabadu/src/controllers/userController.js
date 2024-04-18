@@ -30,23 +30,8 @@ const controller = {
 	},
 
 	// Detail - Detail from one user
-	// OLD VERSION
-	// detail: (req, res) => {
-	// 	// preguntar como solucionar la comparacion de number con string
-	// 	let user = User.findByField('id', req.params.id)
-	// 	if (user) {
-	// 		return res.render(viewsPath('userDetail'), { user })
-	// 	}
-	// 	res.send(`
-	// 	<h1>El usuario que buscas no existe</h1>
-	// 	<a href='/users'>Voler al catalogo</a>
-	// 	`)
-	// },
 
 	detail: async (req, res) => {
-		// preguntar como solucionar la comparacion de number con string
-		// let user = await User.findOne('id', req.params.id)
-
 		try {
 			let user = await User.findOne({
 				where: {
@@ -61,7 +46,7 @@ const controller = {
 			console.log(error);
 		}
 
-		res.send(`
+		return res.send(`
 		<h1>El usuario que buscas no existe</h1>
 		<a href='/users'>Voler al catalogo</a>
 		`)
@@ -98,8 +83,8 @@ const controller = {
 				address: req.body.direccion,
 				country: req.body.pais,
 				email: req.body.email,
-				codArea: req.body.codigoArea,
-				tellphone: req.body.telefono,
+				phone_prefix: req.body.codigoArea,
+				phone: req.body.telefono,
 				image: req.file?.filename || 'default-img.png',
 			}
 
@@ -116,23 +101,39 @@ const controller = {
 	},
 
 	// Register -  Method to store
-	processRegister: (req, res) => {
+	processRegister: async (req, res) => {
+		try {
+			let user = await User.findOne({
+				where: {
+					email: { [Op.like]: `%${req.body.email}%` },
+				},
+			});
+			if (!user) {
+				const newUser = {
+					name: req.body.nombre,
+					surname: req.body.apellido,
+					address: req.body.direccion,
+					country: req.body.pais,
+					email: req.body.email,
+					password: bcryptjs.hashSync(req.body.password, 10),
+					phone_prefix: req.body.codigoArea,
+					phone: req.body.telefono,
+					image: req.file?.filename || 'default-img.png',
+				}
+				// Agregamos el nuevo usuario al listado
 
-		// Armamos el nuevo usuario
-		const newUser = {
-			name: req.body.nombre,
-			surname: req.body.apellido,
-			address: req.body.direccion,
-			country: req.body.pais,
-			email: req.body.email,
-			password: bcryptjs.hashSync(req.body.password, 10),
-			codArea: req.body.codigoArea,
-			tellphone: req.body.telefono,
-			image: req.file?.filename || 'default-img.png',
+				await User.create(newUser)
+				res.redirect('/users')
+			}else{
+				return res.send(`
+				<h1>El email ya esta en uso</h1>
+				<a href='/users/register'>Voler al registro</a>
+				`)
+			}
+		} catch (error) {
 		}
-		// Agregamos el nuevo usuario al listado
-		User.create(newUser)
-		res.redirect('/users')
+		// Armamos el nuevo usuario
+
 	},
 
 	// Update - Form to edit
