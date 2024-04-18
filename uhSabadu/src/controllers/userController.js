@@ -6,28 +6,61 @@ const {
 	validationResult
 } = require('express-validator');
 
-const User = require('../models/entity/user');
+// const User = require('../models/entity/user');
+const { User } = require("../database/models");
+const db = require("../database/models/index");
+const Op = db.Sequelize.Op;
+// const Op = Sequelize.Op;
 
-let viewsPath =  (view) => { return(path.join(__dirname, "../views/users",view))}
+
+let viewsPath = (view) => { return (path.join(__dirname, "../views/users", view)) }
 
 const controller = {
-	
+
 	// viewsPath: () => path.join(__dirname, "../views/users"),
-	
-    // Root - Show all users
-	list: (req, res) => {
-		let users = User.findAll()
-		let homePath = path.join(__dirname, "../views/users", "usersList.ejs");
-		res.render(homePath, { users })
+
+	// Root - Show all users
+	list: async (req, res) => {
+		try {
+			let users = await User.findAll()
+			let homePath = path.join(__dirname, "../views/users", "usersList.ejs");
+			res.render(homePath, { users })
+		} catch (error) {
+		}
 	},
 
 	// Detail - Detail from one user
-	detail: (req, res) => {
+	// OLD VERSION
+	// detail: (req, res) => {
+	// 	// preguntar como solucionar la comparacion de number con string
+	// 	let user = User.findByField('id', req.params.id)
+	// 	if (user) {
+	// 		return res.render(viewsPath('userDetail'), { user })
+	// 	}
+	// 	res.send(`
+	// 	<h1>El usuario que buscas no existe</h1>
+	// 	<a href='/users'>Voler al catalogo</a>
+	// 	`)
+	// },
+
+	detail: async (req, res) => {
 		// preguntar como solucionar la comparacion de number con string
-		let user = User.findByField('id', req.params.id)
-		if (user) {
-			return res.render(viewsPath('userDetail'), { user })
+		// let user = await User.findOne('id', req.params.id)
+
+		try {
+			let user = await User.findOne({
+				where: {
+					id: { [Op.like]: `%${req.params.id}%` },
+				},
+			});
+			if (user) {
+				return res.render(viewsPath('userDetail'), { user })
+			}
+
+		} catch (error) {
+			console.log(error);
 		}
+
 		res.send(`
 		<h1>El usuario que buscas no existe</h1>
 		<a href='/users'>Voler al catalogo</a>
@@ -54,6 +87,27 @@ const controller = {
 		}
 		User.create(newUser)
 		res.redirect('/users')
+	},
+
+	setNewUser: async (req, res) => {
+		try {
+
+			const newUser = {
+				name: req.body.nombre,
+				surname: req.body.apellido,
+				address: req.body.direccion,
+				country: req.body.pais,
+				email: req.body.email,
+				codArea: req.body.codigoArea,
+				tellphone: req.body.telefono,
+				image: req.file?.filename || 'default-img.png',
+			}
+
+			const response = await User.create(newUser);
+			res.json(response);
+		} catch (error) {
+			console.log(error);
+		}
 	},
 
 	// Register - Form to Register
@@ -140,26 +194,38 @@ const controller = {
 		res.render(viewsPath("userLogin"));
 	},
 
-	loginProcess: (req, res) => {
-		let userToLogin = User.findByField('email', req.body.email);
-		if (userToLogin) {
-			let isOkThePassword = bcryptjs.compareSync(req.body.password, userToLogin.password);
-			if (isOkThePassword) {
-				delete userToLogin.password;
-				req.session.userLogged = userToLogin;
-				if (req.body.remember_user) {
-					res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })
-				}
-				return res.redirect('/users/profile');
-			}
-			return res.render(viewsPath('userLogin'), {
-				errors: {
-					email: {
-						msg: 'Las credenciales son inválidas'
-					}
-				}
+	loginProcess: async (req, res) => {
+		// let userToLogin = User.findByField('email', req.body.email);
+
+		try {
+			let userToLogin = await User.findOne({
+				where: {
+					email: { [Op.like]: `%${req.body.email}%` },
+				},
 			});
+			if (userToLogin) {
+				let isOkThePassword = bcryptjs.compareSync(req.body.password, userToLogin.password);
+				if (isOkThePassword) {
+					delete userToLogin.password;
+					req.session.userLogged = userToLogin;
+					if (req.body.remember_user) {
+						res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })
+					}
+					return res.redirect('/users/profile');
+				}
+				return res.render(viewsPath('userLogin'), {
+					errors: {
+						email: {
+							msg: 'Las credenciales son inválidas'
+						}
+					}
+				});
+			}
+
+		} catch (error) {
+			console.log(error);
 		}
+
 		return res.render(viewsPath('userLogin'), {
 			errors: {
 				email: {
@@ -185,7 +251,7 @@ const controller = {
 		res.render(viewsPath('userLogin'));
 	},
 	passwordRecoveryProcess: (req, res) => {
-		
+
 		//TODO
 	},
 };

@@ -5,28 +5,63 @@ const productsFilePath = path.join(__dirname, '../database/', 'productsDataBase.
 let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+let viewsPath = (view) => { return (path.join(__dirname, "../views/products", view)) }
 
-const db = require('../database/models');
+const { Product } = require("../database/models");
+const db = require("../database/models/index");
+const Op = db.Sequelize.Op;
+
 
 const controller = {
 	// Root - Show all products
-	list: (req, res) => {
-		let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-		let homePath = path.join(__dirname, "../views/products", "productsList.ejs");
-		res.render(homePath, { products, toThousand })
+	// list: (req, res) => {
+	// 	let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+	// 	let homePath = path.join(__dirname, "../views/products", "productsList.ejs");
+	// 	res.render(homePath, { products, toThousand })
+	// },
+	list: async (req, res) => {
+		try {
+			let products = await Product.findAll()
+			res.render(viewsPath("productsList"), { products, toThousand })
+		} catch (error) {
+		}
 	},
 
 	// Detail - Detail from one product
-	detail: (req, res) => {
-		let product = products.find(product => product.id == req.params.id)
-		// console.log('product-linea-18', product);
-		let auxPath = path.join(__dirname, "../views/products", "productDetail.ejs");
-		if (product) {
-			return res.render(auxPath, { product, toThousand })
+	// detail: (req, res) => {
+	// 	let product = products.find(product => product.id == req.params.id)
+	// 	// console.log('product-linea-18', product);
+	// 	let auxPath = path.join(__dirname, "../views/products", "productDetail.ejs");
+	// 	if (product) {
+	// 		return res.render(auxPath, { product, toThousand })
+	// 	}
+	// 	res.send(`
+	// 	<h1>El producto que buscas no existe</h1>
+	// 	<a href='/products'>Voler al catalogo</a>
+	// 	`)
+	// },
+
+	detail: async (req, res) => {
+		// preguntar como solucionar la comparacion de number con string
+		// let product = await User.findOne('id', req.params.id)
+
+		try {
+			let product = await Product.findOne({
+				where: {
+					id: { [Op.like]: `%${req.params.id}%` },
+				},
+			});
+			if (product) {
+				return res.render(viewsPath('productDetail'), { product, toThousand })
+			}
+
+		} catch (error) {
+			console.log(error);
 		}
+
 		res.send(`
-		<h1>El producto que buscas no existe</h1>
-		<a href='/products'>Voler al catalogo</a>
+		<h1>El usuario que buscas no existe</h1>
+		<a href='/users'>Voler al catalogo</a>
 		`)
 	},
 
