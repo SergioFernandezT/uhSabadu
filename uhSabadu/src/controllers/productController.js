@@ -6,9 +6,8 @@ let viewsPath = (view) => { return (path.join(__dirname, "../views/products", vi
 
 const { Product } = require("../database/models");
 const db = require("../database/models/index");
-// const { search } = require('../routes/usersRoutes.routes');
+const { and } = require('sequelize');
 const Op = db.Sequelize.Op;
-
 
 const controller = {
 	// Root - Show all products
@@ -22,15 +21,11 @@ const controller = {
 
 	// Detail - Detail from one product
 	detail: async (req, res) => {
-		// preguntar como solucionar la comparacion de number con string
-		// let product = await User.findOne('id', req.params.id)
-
 		try {
 			let product = await Product.findByPk(req.params.id)
 			if (product) {
 				return res.render(viewsPath('productDetail'), { product, toThousand })
 			}
-
 		} catch (error) {
 			console.log(error);
 		}
@@ -42,10 +37,7 @@ const controller = {
 	},
 
 	// Create - Form to create
-	createForm: (req, res) => {
-		let auxPath = path.join(__dirname, "../views/products", "productCreate.ejs");
-		res.render(auxPath)
-	},
+	createForm: (req, res) => res.render(viewsPath('productCreate')),
 
 	// Create -  Method to store
 	processCreate: async (req, res) => {
@@ -66,7 +58,7 @@ const controller = {
 	},
 
 	// Update - Form to edit
-	editForm: async(req, res) => {
+	editForm: async (req, res) => {
 		// Obtener los datos del producto a editar
 		let product = await Product.findByPk(req.params.id)
 		if (product) {
@@ -80,12 +72,8 @@ const controller = {
 		`)
 	},
 	// Update - Method to update
-	processEdit: (req, res) => {
-
-		// Obtener el id del producto a editar 
-		let id = req.params.id
-		// Buscamos el producto a editar con ese id
-		let productEdit = products.find(product => product.id == id)
+	processEdit: async (req, res) => {
+		let productEdit = await Product.findByPk(req.params.id)
 		// Si lo encuentra
 		if (productEdit) {
 			productEdit.name = req.body.name || productEdit.name
@@ -97,7 +85,19 @@ const controller = {
 			productEdit.image = req.file?.filename || productEdit.image
 
 			// Convertir a JSON y Sobre-escribir el json de productos
-			fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 2))
+			await Product.update(
+				{
+					name: req.body.name || productEdit.name,
+					price: req.body.price || productEdit.price,
+					discount: req.body.discount || productEdit.discount,
+					description: req.body.description || productEdit.description,
+					category: req.body.category || productEdit.category,
+					image: req.file?.filename || productEdit.image,
+				},
+				{
+					where: { id: req.params.id },
+				}
+			);
 			// Redirigir al listado
 			res.redirect('/products')
 		} else {
@@ -107,31 +107,18 @@ const controller = {
 	},
 
 	// Delete - Delete one product from DB
-	delete: (req, res) => {
-		// Obtener el id del producto
-		let id = req.params.id
-
-		// Quitar imagen
-		const productToDelete = products.find(product => product.id == id)
-		if (productToDelete.image != 'default-img.png') {
-			fs.unlinkSync(path.join(__dirname, '../../public/images/products', productToDelete.image))
-		}
-
-		// Quitar producto deseado
-		products = products.filter(product => product.id != id)
-		// console.log(products);
-		// Convertir a json el listado actualizado
-		products = JSON.stringify(products, null, 2)
-		// Re-escribir el json
-		fs.writeFileSync(productsFilePath, products)
-		// Redireccionar
-		res.redirect('/products')
+	delete: async (req, res) => {
+		try {
+			const productToDelete = await Product.findByPk(req.params.id)
+			if ((productToDelete.image != 'default-img.png') && productToDelete.image) {
+				fs.unlinkSync(path.join(__dirname, '../../public/images/products', productToDelete.image))
+			}
+			await Product.destroy({ where: { id: productToDelete.id } })
+			res.redirect('/products')
+		} catch (error) { console.log(error) }
 	},
 
-	productCart: (req, res) => {
-		let auxPath = path.join(__dirname, "../views/products", "productCart.ejs");
-		res.render(auxPath);
-	},
+	productCart: (req, res) =>  res.render(viewsPath('productCart')),
 
 	search: async (req, res) => {
 		try {
