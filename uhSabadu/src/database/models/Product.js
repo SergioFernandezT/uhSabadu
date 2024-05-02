@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
         description: {
             type: DataTypes.STRING
         },
+        category: {
+            type: DataTypes.STRING
+        },
+        image: {
+            type: DataTypes.STRING
+        },
     
         // createdAt: {
         //     type: DataTypes.DATE

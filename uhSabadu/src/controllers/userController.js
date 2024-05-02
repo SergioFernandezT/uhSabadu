@@ -10,8 +10,6 @@ const {
 const { User } = require("../database/models");
 const db = require("../database/models/index");
 const Op = db.Sequelize.Op;
-// const Op = Sequelize.Op;
-
 
 let viewsPath = (view) => { return (path.join(__dirname, "../views/users", view)) }
 
@@ -76,7 +74,6 @@ const controller = {
 
 	setNewUser: async (req, res) => {
 		try {
-
 			const newUser = {
 				name: req.body.nombre,
 				surname: req.body.apellido,
@@ -87,7 +84,6 @@ const controller = {
 				phone: req.body.telefono,
 				image: req.file?.filename || 'default-img.png',
 			}
-
 			const response = await User.create(newUser);
 			res.json(response);
 		} catch (error) {
@@ -110,8 +106,8 @@ const controller = {
 			});
 			if (!user) {
 				const newUser = {
-					name: req.body.nombre,
-					surname: req.body.apellido,
+					first_name: req.body.nombre,
+					last_name: req.body.apellido,
 					address: req.body.direccion,
 					country: req.body.pais,
 					email: req.body.email,
@@ -124,7 +120,7 @@ const controller = {
 
 				await User.create(newUser)
 				res.redirect('/users')
-			}else{
+			} else {
 				return res.send(`
 				<h1>El email ya esta en uso</h1>
 				<a href='/users/register'>Voler al registro</a>
@@ -137,9 +133,13 @@ const controller = {
 	},
 
 	// Update - Form to edit
-	editForm: (req, res) => {
+	editForm: async (req, res) => {
 		// Obtener los datos del usuario a editar
-		let user = User.findByField('id', req.params.id)
+		let user = await User.findOne({
+			where: {
+				id: req.params.id
+			}
+		});
 		if (user) {
 			// Renderizar la vista con los datos
 			return (res.render(viewsPath('userEdit'), { user }))
@@ -150,23 +150,29 @@ const controller = {
 		`)
 	},
 	// Update - Method to update
-	processEdit: (req, res) => {
-		let userEdit = User.findByPk((req.params.id))
-
+	processEdit: async (req, res) => {
+		let userEdit = await User.findOne({ where: { id: req.params.id }, })
 		// Si lo encuentra
 		if (userEdit) {
-			userEdit.id = Number(req.body.id) || userEdit.id
-			userEdit.name = req.body.name || userEdit.name
-			userEdit.surname = req.body.surname || userEdit.surname
-			userEdit.country = req.body.country || userEdit.country
-			userEdit.codArea = req.body.codArea || userEdit.codArea
-			userEdit.tellphone = req.body.tellphone || userEdit.tellphone
-			userEdit.address = req.body.address || userEdit.address
-			userEdit.email = req.body.email || userEdit.email
-			// Estaria bueno borrar la vieja si sube una nueva
-			userEdit.image = req.file?.filename || userEdit.image
+			// userEdit.id = Number(req.body.id) || userEdit.id
+
 			// Convertir a JSON y Sobre-escribir el json de usuarios
-			User.update(userEdit)
+			await User.update
+				(
+					{
+						first_name: req.body.name || userEdit.name,
+						last_name: req.body.surname || userEdit.surname,
+						country: req.body.country || userEdit.country,
+						phone_prefix: req.body.codArea || userEdit.codArea,
+						phone: req.body.tellphone || userEdit.tellphone,
+						address: req.body.address || userEdit.address,
+						email: req.body.email || userEdit.email,
+						// Estaria bueno borrar la vieja si sube una nueva
+						image: req.file?.filename || userEdit.image
+					},
+					{
+						where: { id: userEdit.id }
+					})
 			// Redirigir al listado
 			res.redirect('/users/detail/' + userEdit.id)
 		} else {
@@ -176,18 +182,21 @@ const controller = {
 	},
 
 	// Delete - Delete one user from DB
-	delete: (req, res) => {
-
-		// Obtener el id del usuario
-		//let id = req.params.id
-
-		// Quitar imagen
-		let userToDelete = User.findByField('id', req.params.id)
-		if (userToDelete.image != 'default-img.png') {
-			fs.unlinkSync(path.join(__dirname, '../../public/images/users', userToDelete.image))
+	delete: async (req, res) => {
+		try {
+			let userToDelete = await User.findByPk(req.params.id);
+			// console.log(userToDelete)
+			if (userToDelete) {
+				// let userToDelete = User.findByField('id', )			
+				if (userToDelete.image != 'default-img.png') {
+					fs.unlinkSync(path.join(__dirname, '../../public/images/users', userToDelete.image))
+				}
+				// User.delete(id)
+				await User.destroy({ where: { id: userToDelete.id } })
+			}
+			return res.redirect('/users')
 		}
-		User.delete(id)
-		res.redirect('/users')
+		catch (error) { console.log(error) }
 
 	},
 

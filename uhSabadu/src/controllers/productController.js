@@ -1,15 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 
-const productsFilePath = path.join(__dirname, '../database/', 'productsDataBase.json');
-let products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 let viewsPath = (view) => { return (path.join(__dirname, "../views/products", view)) }
 
 const { Product } = require("../database/models");
 const db = require("../database/models/index");
-const { search } = require('../routes/usersRoutes.routes');
+// const { search } = require('../routes/usersRoutes.routes');
 const Op = db.Sequelize.Op;
 
 
@@ -29,11 +26,7 @@ const controller = {
 		// let product = await User.findOne('id', req.params.id)
 
 		try {
-			let product = await Product.findOne({
-				where: {
-					id: { [Op.like]: `%${req.params.id}%` },
-				},
-			});
+			let product = await Product.findByPk(req.params.id)
 			if (product) {
 				return res.render(viewsPath('productDetail'), { product, toThousand })
 			}
@@ -55,36 +48,31 @@ const controller = {
 	},
 
 	// Create -  Method to store
-	processCreate: (req, res) => {
-
-		// Armamos el nuevo producto
-		const newProduct = {
-			id: Date.now(),
-			name: req.body.name,
-			price: req.body.price,
-			discount: req.body.discount,
-			category: req.body.category,
-			description: req.body.description,
-			image: req.file?.filename || 'default-img.png',
+	processCreate: async (req, res) => {
+		try {
+			const newProduct = {
+				name: req.body.name,
+				price: req.body.price,
+				discount: req.body.discount,
+				category: req.body.category,
+				description: req.body.description,
+				image: req.file?.filename || 'default-img.png',
+			}
+			const response = await Product.create(newProduct);
+			res.redirect('/products');
+		} catch (error) {
+			console.log(error);
 		}
-		// Agregamos el nuevo producto al listado
-		products.push(newProduct)
-		// Convertimos a json el objeto javascript
-		let productsJSON = JSON.stringify(products, null, 2)
-		// Escribimos el json
-		fs.writeFileSync(productsFilePath, productsJSON)
-
-		res.redirect('/products')
 	},
 
 	// Update - Form to edit
-	editForm: (req, res) => {
+	editForm: async(req, res) => {
 		// Obtener los datos del producto a editar
-		let product = products.find(product => product.id == req.params.id)
+		let product = await Product.findByPk(req.params.id)
 		if (product) {
 			// Renderizar la vista con los datos
-			let auxPath = path.join(__dirname, "../views/products", "productEdit.ejs");
-			return (res.render(auxPath, { product }))
+			return res.render(viewsPath('productEdit'), { product, toThousand })
+			// return (res.render(auxPath, { product }))
 		}
 		res.send(`
 		<h1>El producto que intentas editar no existe</h1>
@@ -158,8 +146,8 @@ const controller = {
 		} catch (error) {
 			console.log(error);
 		}
-		
-		return res.render(viewsPath("productsList"), { products:'', toThousand })
+
+		return res.render(viewsPath("productsList"), { products: '', toThousand })
 	}
 };
 
