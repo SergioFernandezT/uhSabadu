@@ -20,8 +20,7 @@ router.get('/', usersController.list);
 
 /*** CREATE ONE USER ***/
 router.get('/create', usersController.createForm);
-// router.post('/create', uploadFile.single('image'), usersController.processCreate);
-router.post('/create', uploadFile.single('image'), usersController.setNewUser);
+router.post('/create', uploadFile.single('image'), usersController.processCreate);
 
 /*** REGISTER ONE USER ***/
 router.get('/register', guestMiddleware, usersController.registerForm);

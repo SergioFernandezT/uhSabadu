@@ -6,7 +6,6 @@ let viewsPath = (view) => { return (path.join(__dirname, "../views/products", vi
 
 const { Product } = require("../database/models");
 const db = require("../database/models/index");
-const { and } = require('sequelize');
 const Op = db.Sequelize.Op;
 
 const controller = {

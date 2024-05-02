@@ -6,7 +6,6 @@ const {
 	validationResult
 } = require('express-validator');
 
-// const User = require('../models/entity/user');
 const { User } = require("../database/models");
 const db = require("../database/models/index");
 const Op = db.Sequelize.Op;
@@ -14,8 +13,6 @@ const Op = db.Sequelize.Op;
 let viewsPath = (view) => { return (path.join(__dirname, "../views/users", view)) }
 
 const controller = {
-
-	// viewsPath: () => path.join(__dirname, "../views/users"),
 
 	// Root - Show all users
 	list: async (req, res) => {
@@ -26,9 +23,7 @@ const controller = {
 		} catch (error) {
 		}
 	},
-
 	// Detail - Detail from one user
-
 	detail: async (req, res) => {
 		try {
 			let user = await User.findOne({
@@ -51,28 +46,10 @@ const controller = {
 	},
 
 	// Create - Form to create
-	createForm: (req, res) => {
-		res.render(viewsPath("userCreate"))
-	},
+	createForm: (req, res) => res.render(viewsPath("userCreate")),
 
 	// Create -  Method to store
-	processCreate: (req, res) => {
-		// Armamos el nuevo usuario
-		const newUser = {
-			name: req.body.nombre,
-			surname: req.body.apellido,
-			address: req.body.direccion,
-			country: req.body.pais,
-			email: req.body.email,
-			codArea: req.body.codigoArea,
-			tellphone: req.body.telefono,
-			image: req.file?.filename || 'default-img.png',
-		}
-		User.create(newUser)
-		res.redirect('/users')
-	},
-
-	setNewUser: async (req, res) => {
+	processCreate: async (req, res) => {
 		try {
 			const newUser = {
 				name: req.body.nombre,
@@ -92,9 +69,7 @@ const controller = {
 	},
 
 	// Register - Form to Register
-	registerForm: (req, res) => {
-		res.render(viewsPath('userRegister'))
-	},
+	registerForm: (req, res) => res.render(viewsPath('userRegister')),
 
 	// Register -  Method to store
 	processRegister: async (req, res) => {
@@ -116,8 +91,6 @@ const controller = {
 					phone: req.body.telefono,
 					image: req.file?.filename || 'default-img.png',
 				}
-				// Agregamos el nuevo usuario al listado
-
 				await User.create(newUser)
 				res.redirect('/users')
 			} else {
@@ -126,22 +99,13 @@ const controller = {
 				<a href='/users/register'>Voler al registro</a>
 				`)
 			}
-		} catch (error) {
-		}
-		// Armamos el nuevo usuario
-
+		} catch (error) { }
 	},
 
 	// Update - Form to edit
 	editForm: async (req, res) => {
-		// Obtener los datos del usuario a editar
-		let user = await User.findOne({
-			where: {
-				id: req.params.id
-			}
-		});
+		let user = await User.findOne({ where: { id: req.params.id } });
 		if (user) {
-			// Renderizar la vista con los datos
 			return (res.render(viewsPath('userEdit'), { user }))
 		}
 		res.send(`
@@ -180,33 +144,21 @@ const controller = {
 			res.send('El usuario a editar no existe')
 		}
 	},
-
 	// Delete - Delete one user from DB
 	delete: async (req, res) => {
 		try {
 			let userToDelete = await User.findByPk(req.params.id);
-			// console.log(userToDelete)
 			if (userToDelete) {
-				// let userToDelete = User.findByField('id', )			
-				if (userToDelete.image != 'default-img.png') {
-					fs.unlinkSync(path.join(__dirname, '../../public/images/users', userToDelete.image))
-				}
-				// User.delete(id)
+				if (userToDelete.image != 'default-img.png') { fs.unlinkSync(path.join(__dirname, '../../public/images/users', userToDelete.image)) }
 				await User.destroy({ where: { id: userToDelete.id } })
 			}
 			return res.redirect('/users')
-		}
-		catch (error) { console.log(error) }
-
+		} catch (error) { console.log(error) }
 	},
 
-	login: (req, res) => {
-		res.render(viewsPath("userLogin"));
-	},
+	login: (req, res) => res.render(viewsPath("userLogin")),
 
 	loginProcess: async (req, res) => {
-		// let userToLogin = User.findByField('email', req.body.email);
-
 		try {
 			let userToLogin = await User.findOne({
 				where: {
@@ -246,22 +198,15 @@ const controller = {
 
 	},
 
-	profile: (req, res) => {
-		return res.render(viewsPath('userProfile'), {
-			user: req.session.userLogged
-		});
-	},
+	profile: (req, res) => res.render(viewsPath('userProfile'), { user: req.session.userLogged }),
 
 	logout: (req, res) => {
 		res.clearCookie('userEmail');
 		req.session.destroy();
 		return res.redirect('/');
 	},
-	passwordRecoveryView: (req, res) => {
-		res.render(viewsPath('userLogin'));
-	},
+	passwordRecoveryView: (req, res) => res.render(viewsPath('userLogin')),
 	passwordRecoveryProcess: (req, res) => {
-
 		//TODO
 	},
 };
