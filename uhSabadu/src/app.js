@@ -8,8 +8,8 @@ const userLoggedMiddleware = require('./middlewares/userMiddlewares/userLoggedMi
 
 // Requiriendo  archivos de rutas
 const rutasMain = require('./routes/mainRoute.routes')
-const rutasProducts = require('./routes/productsRoutes.routes')
-const rutasUsers = require('./routes/usersRoutes.routes')
+const rutasProducts = require('./routes/api/productsRoutes.routes')
+const rutasUsers = require('./routes/api/usersRoutes.routes')
 
 const app = express();
 
@@ -32,13 +32,17 @@ app.use(express.urlencoded({ extended: false }))
 
 // Rutas 
 app.use('/',rutasMain)
-app.use('/products',rutasProducts)
-app.use('/users',rutasUsers)
+app.use('/api/products',rutasProducts)
+app.use('/api/users',rutasUsers)
 
 // Template Engine
 app.set('view engine', 'ejs');
 
+// let SEQ = require('./database/models')
+
 const port = 3737;
 app.listen(port, () => {
+	// Entrada PARA FORZAR LA CREACION DE LA BASE DE DATOS
+	// SEQ.sequelize.sync({force: true })    
   console.log(`El servidor esta corriendo en http://localhost:${port} 🚀🚀🚀`);
 });

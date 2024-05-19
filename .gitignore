@@ -3,3 +3,4 @@ node_modules/**
 coverage/
 uhSabadu/src/database/productsDataBase.json
 uhSabadu/src/database/usersDataBase.json
+uhSabadu/public/images/

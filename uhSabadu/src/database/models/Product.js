@@ -13,13 +13,13 @@ module.exports = (sequelize, DataTypes) => {
         description: {
             type: DataTypes.STRING
         },
-        category: {
-            type: DataTypes.STRING
+        category_id: {
+            type: DataTypes.INTEGER
         },
         image: {
             type: DataTypes.STRING
         },
-    
+            
         // createdAt: {
         //     type: DataTypes.DATE
         // },
@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     const Product = sequelize.define(alias, cols, config);
+
+    Product.associate = (models) => {
+        Product.belongsTo(models.Category,{ as : 'categories', foreignKey : 'category_id'  })
+    }
 
     return Product;
 }
