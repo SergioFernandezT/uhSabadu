@@ -10,10 +10,6 @@ const { User } = require("../../database/models");
 const db = require("../../database/models/index");
 const Op = db.Sequelize.Op;
 
-
-
-let viewsPath = (view) => { return (path.join(__dirname, "../views/users", view)) }
-
 const controller = {
 
 	// Root - Show all users
@@ -29,33 +25,28 @@ const controller = {
 				},
 				data: users,
 			};
-			res.json(response);
+			return res.json(response);
 		} catch (error) {
 		}
 	},
 	// Detail - Detail from one user
 	detail: async (req, res) => {
 		try {
-			let user = await User.findOne({
-				where: {
-					id: { [Op.like]: `%${req.params.id}%` },
-				},
-			});
+			let user = await User.findByPk(req.params.id)
 			if (user) {
-				res.json(user);
+				return res.json(user);
 			}
-
 		} catch (error) {
 			console.log(error);
 		}
-
 		const response = {
 			meta: {
 				status: 400,
 				path: `http://localhost:3737/api/users/detail/${req.params.id}`,
+				message: `User with id ${req.params.id} not found`
 			},
 		};
-		res.json(response);
+		return res.json(response);
 	},
 
 	// Create -  Method to store
@@ -72,7 +63,7 @@ const controller = {
 				image: req.file?.filename || 'default-img.png',
 			}
 			const response = await User.create(newUser);
-			res.json(response);
+			return res.json(response);
 		} catch (error) {
 			console.log(error);
 		}
@@ -99,7 +90,7 @@ const controller = {
 					image: req.file?.filename || 'default-img.png',
 				}
 				await User.create(newUser)
-				res.json(newUser)
+				return res.json(newUser)
 			} else {
 				const response = {
 					meta: {
@@ -107,7 +98,7 @@ const controller = {
 						message: `User can't be created`,
 					},
 				};
-				res.json(response);
+				return res.json(response);
 			}
 		} catch (error) { }
 	},
@@ -116,28 +107,27 @@ const controller = {
 	processEdit: async (req, res) => {
 		let userEdit = await User.findOne({ where: { id: req.params.id }, })
 		if (userEdit) {
-			await User.update
-				(
-					{
-						first_name: req.body.name || userEdit.name,
-						last_name: req.body.surname || userEdit.surname,
-						country: req.body.country || userEdit.country,
-						phone_prefix: req.body.codArea || userEdit.codArea,
-						phone: req.body.tellphone || userEdit.tellphone,
-						address: req.body.address || userEdit.address,
-						email: req.body.email || userEdit.email,
-						image: req.file?.filename || userEdit.image
-					},
-					{
-						where: { id: userEdit.id }
-					})
+			await User.update(
+				{
+					first_name: req.body.name || userEdit.name,
+					last_name: req.body.surname || userEdit.surname,
+					country: req.body.country || userEdit.country,
+					phone_prefix: req.body.codArea || userEdit.codArea,
+					phone: req.body.tellphone || userEdit.tellphone,
+					address: req.body.address || userEdit.address,
+					email: req.body.email || userEdit.email,
+					image: req.file?.filename || userEdit.image
+				},
+				{
+					where: { id: userEdit.id }
+				})
 			const response = {
 				meta: {
 					status: 200,
 					message: `User updated successfully`,
 				},
 			};
-			res.json(response);
+			return res.json(response);
 		} else {
 			const response = {
 				meta: {
@@ -145,7 +135,7 @@ const controller = {
 					message: `User update failed, checkout user data`,
 				},
 			};
-			res.json(response);
+			return res.json(response);
 		}
 	},
 	// Delete - Delete one user from DB
@@ -162,7 +152,7 @@ const controller = {
 					message: `User with ${req.params.id} successfull deleted`,
 				},
 			};
-			res.json(response);
+			return res.json(response);
 		} catch (error) { console.log(error) }
 	},
 
