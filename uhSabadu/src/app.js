@@ -38,9 +38,20 @@ app.use('/api/users',rutasUsers)
 // Template Engine
 app.set('view engine', 'ejs');
 
+// ALLOW CORS JS
+// app.use(function(req, res, next) {
+// 	res.header("Access-Control-Allow-Origin", "http://localhost"); // update to match the domain you will make the request from
+// 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+// 	next();
+//   });
+  
+
+const cors = require('cors');
+app.use(cors({ origin: true }));
+
 // let SEQ = require('./database/models')
 
-const port = 3737;
+const port = process.env.PORT || 3737;
 app.listen(port, () => {
 	// Entrada PARA FORZAR LA CREACION DE LA BASE DE DATOS
 	// SEQ.sequelize.sync({force: true })    
