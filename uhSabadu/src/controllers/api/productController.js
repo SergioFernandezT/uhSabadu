@@ -6,12 +6,21 @@ const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const { Product } = require("../../database/models");
 const db = require("../../database/models/index");
 const Op = db.Sequelize.Op;
+const sequelize = require("sequelize");
 
 const controller = {
 	// Root - Show all products
 	list: async (req, res) => {
 		try {
-			let products = await Product.findAll()
+			let products = await Product.findAll({
+				attributes: ['id', 'name', 'description','price','discount',[
+						sequelize.literal(
+							`CONCAT('http://localhost:3737/api/products/detail/', product.id)`
+						),
+						"detail",]
+				]
+			}
+			)
 			const response = {
 				meta: {
 					status: 200,

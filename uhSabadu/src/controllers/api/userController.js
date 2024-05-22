@@ -9,21 +9,30 @@ const {
 const { User } = require("../../database/models");
 const db = require("../../database/models/index");
 const Op = db.Sequelize.Op;
+const sequelize = require("sequelize");
 
 const controller = {
 
 	// Root - Show all users
+
 	list: async (req, res) => {
 		try {
-			let users = await User.findAll()
-
+			let users = await User.findAll({
+				attributes: ['id', 'first_name', 'last_name',
+					[
+						sequelize.literal(
+							`CONCAT('http://localhost:3737/api/users/detail/', user.id)`
+						),
+						"detail",]
+				]
+			})
 			const response = {
 				meta: {
 					status: 200,
 					count: users.length,
 					path: "http://localhost:3737/api/users",
 				},
-				data: users,
+				data: users
 			};
 			return res.json(response);
 		} catch (error) {
@@ -32,7 +41,9 @@ const controller = {
 	// Detail - Detail from one user
 	detail: async (req, res) => {
 		try {
-			let user = await User.findByPk(req.params.id)
+			let user = await User.findByPk(req.params.id,
+				{ attributes: {exclude: ['password'] }}
+			)
 			if (user) {
 				return res.json(user);
 			}
