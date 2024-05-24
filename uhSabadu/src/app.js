@@ -10,6 +10,7 @@ const userLoggedMiddleware = require('./middlewares/userMiddlewares/userLoggedMi
 const rutasMain = require('./routes/mainRoute.routes')
 const rutasProducts = require('./routes/api/productsRoutes.routes')
 const rutasUsers = require('./routes/api/usersRoutes.routes')
+const rutasCategories = require('./routes/api/categoriesRoutes.routes')
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/', rutasMain)
 app.use('/api/products', rutasProducts)
 app.use('/api/users', rutasUsers)
+app.use('/api/categories', rutasCategories)
 
 // Template Engine
 app.set('view engine', 'ejs');

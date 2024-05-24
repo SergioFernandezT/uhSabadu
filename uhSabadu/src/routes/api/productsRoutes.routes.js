@@ -13,6 +13,9 @@ const uploadFile = require('../../middlewares/multerMiddleware');
 /*** GET ALL PRODUCTS ***/
 router.get('/', productsController.list);
 
+/*** GET COUNT PRODUCTS BY CATEGORY***/
+router.get('/count-by-category', productsController.countByCategory);
+
 /*** CREATE ONE PRODUCT ***/
 router.post('/create', uploadFile.single('image'), productsController.processCreate);
 

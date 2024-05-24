@@ -34,7 +34,7 @@ router.put('/edit/:id', uploadFile.single('image'), usersController.processEdit)
 router.delete('/delete/:id', usersController.delete);
 
 /*** LOGIN USER ***/
-router.post('/login',  usersController.loginProcess);
+router.post('/login', usersController.loginProcess);
 
 /*** PASSWORD RECOVERY ***/
 router.post('/resetPassword',  usersController.passwordRecoveryProcess);

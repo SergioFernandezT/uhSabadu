@@ -18,7 +18,7 @@ const controller = {
 	list: async (req, res) => {
 		try {
 			let users = await User.findAll({
-				attributes: ['id', 'first_name', 'last_name',
+				attributes: ['id', 'first_name', 'last_name','email','image',
 					[
 						sequelize.literal(
 							`CONCAT('http://localhost:3737/api/users/detail/', user.id)`
@@ -42,7 +42,7 @@ const controller = {
 	detail: async (req, res) => {
 		try {
 			let user = await User.findByPk(req.params.id,
-				{ attributes: {exclude: ['password'] }}
+				{ attributes: { exclude: ['password'] } }
 			)
 			if (user) {
 				return res.json(user);
@@ -177,7 +177,7 @@ const controller = {
 			if (userToLogin) {
 				let isOkThePassword = bcryptjs.compareSync(req.body.password, userToLogin.password);
 				if (isOkThePassword) {
-					delete userToLogin.password;
+					delete userToLogin.dataValues.password;
 					req.session.userLogged = userToLogin;
 					if (req.body.remember_user) {
 						res.cookie('userEmail', req.body.email, { maxAge: (1000 * 60) * 60 })

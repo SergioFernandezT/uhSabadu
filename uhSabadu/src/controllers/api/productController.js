@@ -3,7 +3,7 @@ const path = require('path');
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-const { Product } = require("../../database/models");
+const { Product, Category } = require("../../database/models");
 const db = require("../../database/models/index");
 const Op = db.Sequelize.Op;
 const sequelize = require("sequelize");
@@ -13,14 +13,13 @@ const controller = {
 	list: async (req, res) => {
 		try {
 			let products = await Product.findAll({
-				attributes: ['id', 'name', 'description','price','discount',[
-						sequelize.literal(
-							`CONCAT('http://localhost:3737/api/products/detail/', product.id)`
-						),
-						"detail",]
+				attributes: ['id', 'name', 'description', 'price', 'discount', 'image', [
+					sequelize.literal(
+						`CONCAT('http://localhost:3737/api/products/detail/', product.id)`
+					),
+					"detail",]
 				]
-			}
-			)
+			})
 			const response = {
 				meta: {
 					status: 200,
@@ -29,7 +28,24 @@ const controller = {
 				},
 				data: products,
 			};
-			res.json(response);
+			return res.json(response);
+		} catch (error) {
+		}
+	},
+
+	countByCategory: async (req, res) => {
+		try {
+			let [results,meta] = await db.sequelize.query('SELECT c.id, c.name,COUNT(p.category_id) as count FROM categories as c LEFT JOIN products as p ON p.category_id=c.id GROUP BY c.id')
+			console.log(results)
+			const response = {
+				meta: {
+					status: 200,
+					count: results.length,
+					path: "http://localhost:3737/api/products/count-by-category",
+				},
+				data: results
+			};
+			return res.json(response);
 		} catch (error) {
 		}
 	},
